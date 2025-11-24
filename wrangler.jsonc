@@ -1,6 +1,6 @@
 {
 	"main": "dist/_worker.js/index.js",
-	"name": "clm-construction-services",
+	"name": "clm-construction-services-website",
   "compatibility_date": "2025-11-24",
   "compatibility_flags": [
     "nodejs_compat",

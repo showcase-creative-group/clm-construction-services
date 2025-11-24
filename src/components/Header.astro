@@ -1,0 +1,89 @@
+---
+// This is the frontmatter section where you can write JS/TS if needed
+---
+
+<header class="site-header">
+  <div class="container">
+    <!-- Logo / Brand Name -->
+    <a href="/" class="brand">
+      <span class="clm">CLM</span>
+      <span class="services">Construction Services</span>
+    </a>
+
+    <!-- Navigation Links -->
+    <nav>
+      <a href="/" class="nav-link">HOME</a>
+      <a href="/projects" class="nav-link">PROJECTS</a>
+      <a href="/services" class="nav-link">SERVICES</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* Scoped CSS: These styles only apply to this component */
+  
+  .site-header {
+    background-color: #1e293b; /* Dark Navy/Slate color from your PDF */
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Logo Styles */
+  .brand {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  .clm {
+    font-size: 1.5rem;
+    color: #38bdf8; /* Light blue accent color */
+  }
+
+  .services {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: #cbd5e1; /* Light gray */
+  }
+
+  /* Navigation Styles */
+  nav {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: #38bdf8; /* Light blue on hover */
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+</style>

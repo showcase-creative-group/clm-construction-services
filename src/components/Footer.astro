@@ -1,0 +1,100 @@
+<footer>
+  <div class="container">
+    
+    <!-- Brand Column -->
+    <div class="footer-col brand-col">
+      <h3>CLM Construction Services</h3>
+      <p>Premier Brazos Valley earthwork and utility contractor with over 35 years of experience delivering exceptional results.</p>
+    </div>
+
+    <!-- Links Column -->
+    <div class="footer-col">
+      <h4>PAGES</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/projects">Projects</a></li>
+      </ul>
+    </div>
+
+    <!-- Services Column -->
+    <div class="footer-col">
+      <h4>SERVICES</h4>
+      <ul>
+        <li><a href="/services#civil">Civil</a></li>
+        <li><a href="/services#drainage">Drainage</a></li>
+        <li><a href="/services#utilities">Utilities</a></li>
+        <li><a href="/services#earthwork">Earthwork</a></li>
+      </ul>
+    </div>
+
+  </div>
+  
+  <div class="bottom-bar">
+    <p>&copy; {new Date().getFullYear()} CLM Construction Services. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background-color: #1e293b; /* Dark Navy */
+    color: white;
+    padding-top: 4rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem 1.5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2rem;
+  }
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+  }
+
+  h4 {
+    color: #94a3b8;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a:hover {
+    color: #38bdf8;
+  }
+
+  .bottom-bar {
+    background-color: #0f172a;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: #64748b;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      grid-template-columns: 1fr; /* Stack columns on mobile */
+    }
+  }
+</style>

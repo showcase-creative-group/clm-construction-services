@@ -1,265 +1,245 @@
 ---
+const services = [
+  {
+    id: "01",
+    title: "Civil",
+    desc: "Public streets, layout, storm sewer, site stabilization, and embankments.",
+    img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
+    id: "02",
+    title: "Drainage",
+    desc: "Box culverts, detention ponds, concrete channels, and underground detention.",
+    img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop"
+  },
+  {
+    id: "03",
+    title: "Utilities",
+    desc: "Water, sanitary sewer, fire lines, domestic water, and storm sewer systems.",
+    img: "https://images.unsplash.com/photo-1605600659908-0ef719419d41?q=80&w=2073&auto=format&fit=crop"
+  },
+  {
+    id: "04",
+    title: "Earthwork",
+    desc: "Mass excavation, rough grade, building pads, final grade, and detention ponds.",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop"
+  }
+];
 ---
 
 <section class="mission-section">
+  
   <div class="foundation-block">
     <div class="container split-layout">
-      
       <div class="text-content">
         <h2>
-          At CLM, We<br/>
-          Build On A<br/>
+          At CLM, We Build On A<br/>
           <span class="highlight">Solid Foundation</span>
         </h2>
       </div>
-
       <div class="expertise-box">
-        <div class="box-header">
-          <h3>Our Expertise</h3>
-        </div>
-        <div class="box-content">
-          <p>
-            Started in Brazos Valley, CLM Construction Services began as an idea to provide quality pipeline services for commercial projects.
-          </p>
-          <p>
-            Now, over 35 years later, we have placed millions of feet of pipe, performed countless utility and earthwork projects, and remained in the growing Brazos Valley of Central Texas.
-          </p>
-          <p class="mission-statement">At CLM we Build on a Solid Foundation so your project can succeed.</p>
-        </div>
+        <p class="intro-text">
+            Started in Brazos Valley over 35 years ago, CLM Construction Services has placed millions of feet of pipe and performed countless utility projects.
+        </p>
+        <p class="mission-statement">We build on a solid foundation so your project can succeed.</p>
       </div>
-
     </div>
   </div>
 
-  <div class="services-grid-container">
-    <div class="container grid-layout">
-      
-      <div class="service-item">
-        <div class="icon-circle">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5"/><path d="M5 12V5a2 2 0 0 1 2-2h7"/><path d="M14 8h5.5a1.5 1.5 0 0 1 1.5 1.5v9"/><path d="M19 12l2.5-3"/><path d="M2 22h20"/><circle cx="8" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
-        </div>
-        <h4>Civil</h4>
-        <p>Public streets, layout, storm sewer, site stabilization, embankments/roads.</p>
-      </div>
+  <div class="services-block-grid">
+    {services.map((service) => (
+      <div class="service-block" style={`--hover-bg: url('${service.img}')`}>
+        <div class="hover-bg-layer"></div>
+        <div class="hover-overlay-layer"></div>
 
-      <div class="service-item">
-        <div class="icon-circle">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        <div class="block-content">
+          <span class="service-number">{service.id}</span>
+          <h3 class="service-title">{service.title}</h3>
+          <p class="service-desc">{service.desc}</p>
         </div>
-        <h4>Drainage</h4>
-        <p>Box culverts, detention ponds, concrete channels, underground detention.</p>
       </div>
-
-      <div class="service-item">
-        <div class="icon-circle">
-           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M6 5h12"/><path d="M6 19h12"/><rect x="8" y="5" width="8" height="14" rx="2"/></svg>
-        </div>
-        <h4>Utilities</h4>
-        <p>Water, sanitary sewer, fire lines, domestic water, storm sewer.</p>
-      </div>
-
-      <div class="service-item">
-        <div class="icon-circle">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h14"/><path d="M13 17l4-5h4"/><path d="M22 12h-4"/><rect x="4" y="6" width="8" height="8" rx="1"/><circle cx="6" cy="17" r="3"/><circle cx="16" cy="17" r="3"/></svg>
-        </div>
-        <h4>Earthwork</h4>
-        <p>Mass excavation, rough grade, building pads, final grade, detention ponds.</p>
-      </div>
-
-    </div>
+    ))}
   </div>
+
 </section>
 
 <style>
-  /* --- Top Foundation Section --- */
+  /* --- 1. Foundation Top Section --- */
   .foundation-block {
-    /* Updated to Brand Dark Navy */
-    background-color: #1e293b; 
-    color: white;
-    padding: 6rem 0; /* More vertical breathing room */
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Optional: Adds a subtle line texture to the background for industrial feel */
-  .foundation-block::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px);
-    pointer-events: none;
+    background-color: #f6f6f6;
+    color: #1e293b;
+    padding: 6rem 0;
   }
 
   .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 1.5rem;
-    position: relative;
-    z-index: 2;
+    padding: 0 1.5rem; 
   }
 
   .split-layout {
     display: flex;
-    align-items: flex-start; /* Aligns top of text with top of box */
+    align-items: center;
     justify-content: space-between;
     gap: 4rem;
   }
 
   h2 {
-    font-size: 4rem; /* Larger for Barlow */
+    font-size: 4rem;
     font-weight: 800;
-    line-height: 1;
+    line-height: 0.95;
     text-transform: uppercase;
     margin: 0;
+    color: #1e293b;
   }
 
-  /* The accent color text */
   .highlight {
     color: #38bdf8;
-    display: block; /* Forces it to its own line */
-    margin-top: 0.5rem;
   }
 
-  /* --- Expertise Box Styling --- */
   .expertise-box {
-    background-color: #0f172a; /* Darker slate for contrast against the background */
-    max-width: 550px;
-    border-radius: 4px;
-    overflow: hidden; /* Keeps border radius clean */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Deep shadow to make it "float" */
-    border-left: 6px solid #38bdf8; /* Blue accent bar on the left */
+    max-width: 600px;
+    border-left: 4px solid #38bdf8;
+    padding-left: 2.5rem; 
   }
 
-  .box-header {
-    background-color: rgba(255,255,255,0.05);
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .expertise-box h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: white;
-  }
-
-  .box-content {
-    padding: 2rem;
-  }
-
-  .expertise-box p {
-    font-size: 1.05rem;
+  .intro-text {
+    font-size: 1.1rem;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
-    color: #cbd5e1; /* Light gray text */
+    color: #475569;
+    margin-bottom: 1.5rem; 
   }
 
   .mission-statement {
     font-weight: 700;
-    color: white !important;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 1.5rem;
-    margin-bottom: 0 !important;
+    font-size: 1.25rem;
+    color: #1e293b;
+    text-transform: uppercase;
   }
 
-  /* --- Bottom Services Section --- */
-  .services-grid-container {
-    background-color: white;
-    padding: 6rem 0;
-  }
-
-  .grid-layout {
+  /* --- 2. The Service Grid --- */
+  .services-block-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2.5rem;
-    text-align: center;
+    width: 100%;
   }
 
-  /* Icon Circle Container */
-  .icon-circle {
-    width: 80px;
-    height: 80px;
-    background-color: #f1f5f9; /* Very light gray background */
-    border-radius: 50%;
+  .service-block {
+    position: relative;
+    background-color: #1e293b;
+    color: white;
+    padding: 3.5rem 2rem; 
+    border-right: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem auto;
-    transition: all 0.3s ease;
-  }
-  
-  .icon-circle svg {
-    width: 40px;
-    height: 40px;
-    stroke: #1e293b; /* Dark Navy Icon */
-    stroke-width: 1.5;
-    transition: stroke 0.3s ease;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 500px;
+    overflow: hidden;
+    cursor: default;
   }
 
-  /* Hover Effects for Service Items */
-  .service-item:hover .icon-circle {
-    background-color: #38bdf8; /* Turns blue on hover */
-    transform: translateY(-5px); /* Floats up slightly */
+  /* --- Background Hover Logic --- */
+  .hover-bg-layer {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: var(--hover-bg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, transform 6s linear;
+    z-index: 0;
+    pointer-events: none;
   }
 
-  .service-item:hover .icon-circle svg {
-    stroke: white; /* Icon turns white */
+  .hover-overlay-layer {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.75);
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    z-index: 1;
+    pointer-events: none;
   }
 
-  .service-item h4 {
-    color: #1e293b;
-    font-size: 1.25rem;
+  .service-block:hover .hover-bg-layer {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .service-block:hover .hover-overlay-layer {
+    opacity: 1;
+  }
+
+  /* --- Content Styling --- */
+  .block-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-number {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1.5rem; 
+    font-weight: 500;
+  }
+
+  .service-title {
+    font-size: 3.5rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 0.75rem;
+    line-height: 0.9;
+    margin: 0 0 1.5rem 0;
+    font-family: 'Barlow', sans-serif;
   }
 
-  .service-item p {
-    font-size: 0.95rem;
-    color: #64748b;
-    line-height: 1.5;
-    max-width: 250px;
-    margin: 0 auto;
+  .service-desc {
+    font-size: 1.35rem; 
+    line-height: 1.4; 
+    font-weight: 500;
+    color: #e2e8f0;
+    margin-bottom: auto;
   }
 
-  /* Responsive Adjustments */
-  @media (max-width: 1024px) {
-    h2 {
-      font-size: 3rem;
+  /* --- Responsive Design --- */
+  @media (max-width: 1200px) {
+    .services-block-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
+    .service-title { font-size: 3rem; }
+    h2 { font-size: 3rem; }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
+    .foundation-block {
+      padding: 4rem 0;
+    }
+    
     .split-layout {
       flex-direction: column;
-      align-items: center;
-      text-align: center;
+      align-items: flex-start;
+      gap: 2rem;
     }
     
     .expertise-box {
-        max-width: 100%;
+        border-left: none;
+        border-top: 4px solid #38bdf8;
+        padding-left: 0;
+        padding-top: 1.5rem;
     }
 
-    .grid-layout {
-      grid-template-columns: 1fr 1fr; /* 2 columns on tablet */
-      gap: 3rem;
+    .services-block-grid {
+      grid-template-columns: 1fr;
     }
-  }
 
-  @media (max-width: 600px) {
-    .grid-layout {
-      grid-template-columns: 1fr; /* 1 column on mobile */
+    .service-block {
+        min-height: auto; 
+        padding: 3rem 1.5rem; 
     }
-    
-    h2 {
-      font-size: 2.5rem;
-    }
-    
-    .foundation-block {
-        padding: 4rem 0;
-    }
+
+    .service-title { font-size: 2.5rem; }
   }
 </style>

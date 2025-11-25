@@ -1,15 +1,22 @@
+---
+---
+
 <section class="stats-bar">
   <div class="container">
     
     <div class="stat-item">
-      <span class="number">1.9m</span>
-      <span class="label">ft of pipe placed</span>
+      <span class="number">1.9 Million</span>
+      <span class="label">Feet of Pipe Placed</span>
     </div>
 
+    <div class="divider"></div>
+
     <div class="stat-item">
-      <span class="number">35+</span>
+      <span class="number">35</span>
       <span class="label">Years Experience</span>
     </div>
+
+    <div class="divider"></div>
 
     <div class="stat-item">
       <span class="number">150+</span>
@@ -21,39 +28,86 @@
 
 <style>
   .stats-bar {
-    background-color: #0f172a; /* Very dark blue */
-    color: white;
-    padding: 3rem 0;
+    /* UPDATED: Light background to contrast with the dark Mission grid above and Footer below */
+    background-color: #f6f6f6; 
+    color: #1e293b;
+    padding: 6rem 0;
+    border-bottom: 1px solid rgba(30, 41, 59, 0.05); /* Subtle bottom border */
   }
 
   .container {
-    max-width: 1000px;
+    max-width: 1400px; /* Match the wider container of Mission/Hero */
     margin: 0 auto;
+    padding: 0 1.5rem;
     display: flex;
-    justify-content: space-around;
-    text-align: center;
-    flex-wrap: wrap;
-    gap: 2rem;
+    justify-content: space-between; /* Spread items evenly */
+    align-items: center;
   }
 
   .stat-item {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    flex: 1; /* Each item takes equal width */
   }
 
   .number {
-    font-size: 3rem;
-    font-weight: 700;
-    color: white;
+    /* UPDATED: Huge "Hero" sizing for the numbers */
+    font-size: 5rem; 
+    font-weight: 800;
     line-height: 1;
+    color: #38bdf8; /* Brand Blue for pop */
+    font-family: 'Barlow', sans-serif;
     margin-bottom: 0.5rem;
   }
 
   .label {
-    font-size: 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #94a3b8; /* Light gray text */
+    color: #1e293b; /* Dark Navy */
+    font-family: 'Barlow', sans-serif;
+  }
+
+  /* --- Dividers --- */
+  .divider {
+    width: 1px;
+    height: 80px; /* Tall vertical line */
+    background-color: rgba(30, 41, 59, 0.1); /* Subtle dark line */
+    margin: 0 2rem;
+  }
+
+  /* --- Responsive Design --- */
+  @media (max-width: 900px) {
+    .number {
+      font-size: 4rem;
+    }
+    
+    .label {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stats-bar {
+      padding: 4rem 0;
+    }
+
+    .container {
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .divider {
+      width: 60px; /* Horizontal line on mobile */
+      height: 2px;
+      margin: 0;
+    }
+    
+    .number {
+      font-size: 3.5rem;
+    }
   }
 </style>

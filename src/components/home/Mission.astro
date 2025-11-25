@@ -31,15 +31,16 @@ const services = [
   
   <div class="foundation-block">
     <div class="container split-layout">
-      <div class="text-content">
+      <div class="text-content animate-fade-up">
         <h2>
           At CLM, We Build On A<br/>
           <span class="highlight">Solid Foundation</span>
         </h2>
       </div>
-      <div class="expertise-box">
+      <div class="expertise-box animate-fade-up delay-100">
         <p class="intro-text">
-            Started in Brazos Valley over 35 years ago, CLM Construction Services has placed millions of feet of pipe and performed countless utility projects.
+            Started in Brazos Valley 
+            over 35 years ago, CLM Construction Services has placed millions of feet of pipe and performed countless utility projects.
         </p>
         <p class="mission-statement">We build on a solid foundation so your project can succeed.</p>
       </div>
@@ -47,8 +48,11 @@ const services = [
   </div>
 
   <div class="services-block-grid">
-    {services.map((service) => (
-      <div class="service-block" style={`--hover-bg: url('${service.img}')`}>
+    {services.map((service, index) => (
+      <div 
+        class="service-block animate-fade-up" 
+        style={`--hover-bg: url('${service.img}'); transition-delay: ${index * 100}ms;`}
+      >
         <div class="hover-bg-layer"></div>
         <div class="hover-overlay-layer"></div>
 
@@ -74,7 +78,7 @@ const services = [
   .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 1.5rem; 
+    padding: 0 1.5rem;
   }
 
   .split-layout {
@@ -139,7 +143,7 @@ const services = [
     cursor: default;
   }
 
-  /* --- Background Hover Logic --- */
+  /* --- Background Hover Logic (Updated for Smoothness) --- */
   .hover-bg-layer {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -147,9 +151,11 @@ const services = [
     background-size: cover;
     background-position: center;
     opacity: 0;
-    transition: opacity 0.4s ease-in-out, transform 6s linear;
     z-index: 0;
     pointer-events: none;
+    
+    /* EXIT TIMING: Fade out image FAST (0.3s) so it disappears before overlay */
+    transition: opacity 0.3s ease-in-out, transform 6s linear;
   }
 
   .hover-overlay-layer {
@@ -157,18 +163,28 @@ const services = [
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(15, 23, 42, 0.75);
     opacity: 0;
-    transition: opacity 0.4s ease-in-out;
     z-index: 1;
     pointer-events: none;
+
+    /* EXIT TIMING: Fade out overlay SLOW (0.5s) to keep it dark while image leaves */
+    transition: opacity 0.5s ease-in-out;
   }
 
+  /* --- HOVER STATES (ENTER TIMING) --- */
+  
   .service-block:hover .hover-bg-layer {
     opacity: 1;
     transform: scale(1.1);
+    
+    /* ENTER TIMING: Fade in image SLOW (0.5s) so overlay beats it */
+    transition: opacity 0.5s ease-in-out, transform 6s linear;
   }
 
   .service-block:hover .hover-overlay-layer {
     opacity: 1;
+    
+    /* ENTER TIMING: Fade in overlay FAST (0.3s) to darken immediately */
+    transition: opacity 0.3s ease-in-out;
   }
 
   /* --- Content Styling --- */
@@ -204,6 +220,22 @@ const services = [
     margin-bottom: auto;
   }
 
+  /* --- Animation Utilities --- */
+  .animate-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .animate-fade-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .delay-100 {
+    transition-delay: 0.1s;
+  }
+
   /* --- Responsive Design --- */
   @media (max-width: 1200px) {
     .services-block-grid {
@@ -237,9 +269,32 @@ const services = [
 
     .service-block {
         min-height: auto; 
-        padding: 3rem 1.5rem; 
+        padding: 3rem 1.5rem;
     }
 
     .service-title { font-size: 2.5rem; }
   }
 </style>
+
+<script>
+  // Setup Intersection Observer to trigger animations when elements scroll into view
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1 // Trigger when 10% of the element is visible
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target); // Only animate once
+      }
+    });
+  }, observerOptions);
+
+  // Observe all elements with the animation class
+  document.querySelectorAll('.animate-fade-up').forEach((el) => {
+    observer.observe(el);
+  });
+</script>

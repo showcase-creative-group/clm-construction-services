@@ -5,21 +5,29 @@
   <div class="container">
 
     <div class="stat-item">
-      <span class="number">35</span>
+      <div class="number">
+        <span class="counter" data-target="35">0</span>
+      </div>
       <span class="label">Years Experience</span>
     </div>
 
     <div class="divider"></div>
     
     <div class="stat-item">
-      <span class="number">1.9 MILLION</span>
+      <div class="number">
+        <span class="counter" data-target="1.9" data-decimals="1">0</span>
+        <span class="suffix">MILLION</span>
+      </div>
       <span class="label">Feet of Pipe Placed</span>
     </div>
 
     <div class="divider"></div>
 
     <div class="stat-item">
-      <span class="number">150+</span>
+      <div class="number">
+        <span class="counter" data-target="150">0</span>
+        <span class="suffix">+</span>
+      </div>
       <span class="label">Projects Completed</span>
     </div>
 
@@ -28,19 +36,18 @@
 
 <style>
   .stats-bar {
-    /* UPDATED: Light background to contrast with the dark Mission grid above and Footer below */
-    background-color: #f6f6f6; 
+    background-color: #f6f6f6;
     color: #1e293b;
     padding: 6rem 0;
-    border-bottom: 1px solid rgba(30, 41, 59, 0.05); /* Subtle bottom border */
+    border-bottom: 1px solid rgba(30, 41, 59, 0.05);
   }
 
   .container {
-    max-width: 1400px; /* Match the wider container of Mission/Hero */
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 1.5rem;
     display: flex;
-    justify-content: space-between; /* Spread items evenly */
+    justify-content: space-between;
     align-items: center;
   }
 
@@ -49,17 +56,30 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    flex: 1; /* Each item takes equal width */
+    flex: 1;
   }
 
   .number {
-    /* UPDATED: Huge "Hero" sizing for the numbers */
-    font-size: 5rem; 
+    font-size: 5rem;
     font-weight: 800;
     line-height: 1;
-    color: #38bdf8; /* Brand Blue for pop */
+    color: #38bdf8; /* Brand Blue */
     font-family: 'Barlow', sans-serif;
     margin-bottom: 0.5rem;
+    
+    /* Ensures the number and suffix sit nicely together */
+    display: flex;
+    align-items: baseline; 
+    justify-content: center;
+    gap: 0.5rem; 
+    flex-wrap: wrap; /* wrap on very small screens if needed */
+  }
+
+  /* Optional: Make text suffixes slightly smaller if 'MILLION' is too huge */
+  .suffix {
+    font-size: 0.6em; /* 60% of the parent 5rem */
+    font-weight: 800;
+    color: #38bdf8;
   }
 
   .label {
@@ -67,15 +87,14 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #1e293b; /* Dark Navy */
+    color: #1e293b;
     font-family: 'Barlow', sans-serif;
   }
 
-  /* --- Dividers --- */
   .divider {
     width: 1px;
-    height: 80px; /* Tall vertical line */
-    background-color: rgba(30, 41, 59, 0.1); /* Subtle dark line */
+    height: 80px;
+    background-color: rgba(30, 41, 59, 0.1);
     margin: 0 2rem;
   }
 
@@ -84,7 +103,6 @@
     .number {
       font-size: 4rem;
     }
-    
     .label {
       font-size: 1.1rem;
     }
@@ -101,7 +119,7 @@
     }
 
     .divider {
-      width: 60px; /* Horizontal line on mobile */
+      width: 60px;
       height: 2px;
       margin: 0;
     }
@@ -111,3 +129,54 @@
     }
   }
 </style>
+
+<script>
+  // Function to animate a single counter
+  const animateCounter = (el: Element) => {
+    const target = parseFloat(el.getAttribute('data-target') || '0');
+    const decimals = parseInt(el.getAttribute('data-decimals') || '0');
+    const duration = 2000; // Animation duration in ms
+    const start = 0;
+    const startTime = performance.now();
+
+    const update = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease-out quart function for smooth landing
+      const ease = 1 - Math.pow(1 - progress, 4);
+      
+      const currentVal = start + (target - start) * ease;
+      
+      // Format the number
+      el.textContent = currentVal.toFixed(decimals);
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = target.toFixed(decimals); // Ensure final value is exact
+      }
+    };
+
+    requestAnimationFrame(update);
+  };
+
+  // Intersection Observer to trigger animation when visible
+  const observerOptions = {
+    root: null,
+    threshold: 0.5 // Trigger when 50% visible
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target); // Run only once
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.counter').forEach(el => {
+    observer.observe(el);
+  });
+</script>

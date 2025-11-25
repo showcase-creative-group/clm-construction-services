@@ -11,14 +11,14 @@
   
   <div class="content">
     <h1>
-      PREMIER<br>
-      BRAZOS<br>
-      VALLEY<br>
-      EARTHWORK<br>
-      AND UTILITY<br>
-      CONTRACTOR
+      <span class="text-line" style="--delay: 0.1s">PREMIER</span>
+      <span class="text-line" style="--delay: 0.2s">BRAZOS</span>
+      <span class="text-line" style="--delay: 0.3s">VALLEY</span>
+      <span class="text-line" style="--delay: 0.4s">EARTHWORK</span>
+      <span class="text-line" style="--delay: 0.5s">AND UTILITY</span>
+      <span class="text-line" style="--delay: 0.6s">CONTRACTOR</span>
     </h1>
-    <p class="tagline">Industry leading experience with HDPE pipe</p>
+    <p class="tagline" style="--delay: 0.8s">Industry leading experience with HDPE pipe</p>
   </div>
 </section>
 
@@ -62,18 +62,16 @@
     width: 100%;
     margin: 0 auto;
     padding: 0 1.5rem;
-    
     /* FLEXBOX SETTINGS FOR RIGHT ALIGNMENT */
     display: flex;
     flex-direction: column;
     align-items: flex-end; 
-    text-align: right; 
+    text-align: right;
   }
 
   h1 {
     /* Adjusted from 6rem down to 5rem */
-    font-size: 5rem; 
-    
+    font-size: 5rem;
     font-weight: 800; 
     
     /* Kept tight line-height for the "stacked block" look */
@@ -82,7 +80,25 @@
     text-transform: uppercase;
     margin-bottom: 1.5rem;
     margin-top: 0;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.6); 
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+  }
+
+  /* --- ANIMATION LOGIC --- */
+
+  /* Defines the "starting state" for lines: invisible and shifted down */
+  .text-line, .tagline {
+    display: block; /* Ensures they stack like lines */
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: var(--delay); /* Uses the delay set in the HTML */
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .tagline {
@@ -99,7 +115,7 @@
   @media (max-width: 1024px) {
     h1 {
       /* Adjusted proportionally */
-      font-size: 3.5rem; 
+      font-size: 3.5rem;
     }
   }
 
@@ -111,7 +127,7 @@
 
     h1 {
       /* Safe size for mobile phones */
-      font-size: 2.25rem; 
+      font-size: 2.25rem;
       line-height: 1.0; 
     }
   }

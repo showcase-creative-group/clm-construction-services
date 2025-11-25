@@ -1,5 +1,14 @@
 ---
-// This is the frontmatter section where you can write JS/TS if needed
+const pathname = Astro.url.pathname;
+
+// Helper to determine if a link is active
+const isActive = (href: string) => {
+  if (href === '/') {
+    return pathname === '/';
+  }
+  // Starts with ensures sub-pages (e.g. /projects/1) also highlight 'Projects'
+  return pathname.startsWith(href);
+};
 ---
 
 <header class="site-header">
@@ -10,9 +19,9 @@
     </a>
 
     <nav>
-      <a href="/" class="nav-link">HOME</a>
-      <a href="/projects" class="nav-link">PROJECTS</a>
-      <a href="/services" class="nav-link">SERVICES</a>
+      <a href="/" class:list={["nav-link", { active: isActive('/') }]}>HOME</a>
+      <a href="/projects" class:list={["nav-link", { active: isActive('/projects') }]}>PROJECTS</a>
+      <a href="/services" class:list={["nav-link", { active: isActive('/services') }]}>SERVICES</a>
     </nav>
   </div>
 </header>
@@ -21,12 +30,14 @@
   /* Scoped CSS */
   
   .site-header {
-    background-color: #1e293b; 
+    background-color: #1e293b;
     color: white;
     padding: 1.25rem 0; /* Increased padding slightly for better breathing room */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Slightly stronger shadow */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    /* Slightly stronger shadow */
     position: relative;
-    z-index: 100; /* Ensures header stays on top of content */
+    z-index: 100;
+    /* Ensures header stays on top of content */
   }
 
   .container {
@@ -45,41 +56,68 @@
     display: flex;
     flex-direction: column;
     line-height: 1; /* Tighter line height prevents gap between CLM and Services */
-    font-weight: 800; /* Uses the extra bold weight of Barlow */
+    font-weight: 800;
+    /* Uses the extra bold weight of Barlow */
   }
 
   .clm {
-    font-size: 2.25rem; /* Much larger */
+    font-size: 2.25rem;
+    /* Much larger */
     color: #38bdf8; 
     letter-spacing: 1px;
   }
 
   .services {
-    font-size: 1rem; /* Increased size */
+    font-size: 1rem;
+    /* Increased size */
     text-transform: uppercase;
     color: #cbd5e1; 
-    letter-spacing: 2px; /* Wider spacing makes small caps look premium */
-    margin-top: 4px; /* Small gap between text */
+    letter-spacing: 2px;
+    /* Wider spacing makes small caps look premium */
+    margin-top: 4px;
+    /* Small gap between text */
     font-weight: 600;
   }
 
   /* Navigation Styles */
   nav {
     display: flex;
-    gap: 2.5rem; /* More space between links */
+    gap: 2.5rem;
+    /* More space between links */
   }
 
   .nav-link {
     text-decoration: none;
     color: white;
-    font-weight: 700; /* Bold to match the industrial feel */
-    font-size: 1.125rem; /* Increased from 0.9rem to 1.125rem */
+    font-weight: 700;
+    /* Bold to match the industrial feel */
+    font-size: 1.125rem;
+    /* Increased from 0.9rem to 1.125rem */
     letter-spacing: 1px;
     transition: color 0.2s ease;
+    /* Added for underline positioning */
+    position: relative;
+    padding-bottom: 4px;
   }
 
   .nav-link:hover {
     color: #38bdf8; 
+  }
+
+  /* Active State Styles */
+  .nav-link.active {
+    color: #38bdf8;
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px; /* Thickness of underline */
+    background-color: #38bdf8;
+    border-radius: 2px;
   }
 
   /* Mobile responsiveness */

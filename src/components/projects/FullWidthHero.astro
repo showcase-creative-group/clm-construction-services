@@ -1,0 +1,42 @@
+---
+interface Props {
+  img: string;
+  alt?: string;
+}
+
+const { img, alt = "Featured Project" } = Astro.props;
+---
+
+<section class="featured-wrapper">
+  <img src={img} alt={alt} class="featured-img" />
+  <div class="overlay"></div>
+</section>
+
+<style>
+  .featured-wrapper {
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    overflow: hidden;
+    background-color: #1e293b;
+  }
+
+  .featured-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (max-width: 1024px) {
+    .featured-wrapper {
+      height: 70vh;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .featured-wrapper {
+      height: 60vh;
+    }
+  }
+</style>

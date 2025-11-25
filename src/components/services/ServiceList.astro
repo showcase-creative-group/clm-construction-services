@@ -1,0 +1,305 @@
+---
+/* Data extracted and cleaned */
+const services = [
+  {
+    id: "01",
+    title: "Civil",
+    subtitle: "Civil Construction",
+    description: "We provide comprehensive civil construction services for public and private sectors, ensuring every project starts with a solid framework.",
+    features: [
+      "Public Streets & Layouts",
+      "Storm Sewer Systems",
+      "Site Stabilization",
+      "Embankments & Roads"
+    ],
+    img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
+    id: "02",
+    title: "Drainage",
+    subtitle: "Drainage Systems",
+    description: "Expert installation and repair of complex drainage systems to manage water flow effectively and protect your infrastructure.",
+    features: [
+      "HDPE Hydraulic Drainage",
+      "Open Air Drainage Basins & Channels",
+      "Drainage Ditch Repairs",
+      "Box Culverts & Concrete Channels"
+    ],
+    img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop"
+  },
+  {
+    id: "03",
+    title: "Utility",
+    subtitle: "Utility Infrastructure",
+    description: "From water to gas, we handle the critical infrastructure that powers and serves our communities with precision and safety.",
+    features: [
+      "HDPE Domestic Water Piping Systems",
+      "HDPE Sanitary Sewer Systems & Lift Stations",
+      "Natural Gas and Oil & Gas Applications",
+      "Repair & Replacement of Existing Systems"
+    ],
+    img: "https://images.unsplash.com/photo-1605600659908-0ef719419d41?q=80&w=2073&auto=format&fit=crop"
+  },
+  {
+    id: "04",
+    title: "Earthwork",
+    subtitle: "Earthwork Solutions",
+    description: "Our earthwork services include all aspects of new civil construction. We work with a myriad of clients from large scale institutions to private farms.",
+    features: [
+      "Earthwork & Grading",
+      "Roadway & Utility Subgrade Prep",
+      "Lime & Cement Stabilization",
+      "Clearing, Grubbing, Haul-off & Clean up"
+    ],
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop"
+  }
+];
+---
+
+<section class="services-list">
+  {services.map((service, index) => (
+    <div class="service-row">
+      <div class="container">
+        
+        <div class="blueprint-spine">
+          <div class="spine-dot"></div>
+        </div>
+
+        <div class={`content-wrapper ${index % 2 === 1 ? 'reverse' : ''}`}>
+          
+          <div class="text-col">
+            
+            <span class="service-id">{service.id}</span>
+            <h2 class="service-title">{service.title} <span class="light">{service.subtitle}</span></h2>
+            <p class="description">{service.description}</p>
+            
+            <ul class="feature-list">
+              {service.features.map(item => (
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="image-col">
+            <div class="image-frame">
+              <img src={service.img} alt={service.title} loading="lazy" />
+              <div class="deco-box"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  ))}
+</section>
+
+<style>
+  .services-list {
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+    
+    /* --- Blueprint Grid Pattern --- */
+    background-image: 
+      linear-gradient(rgba(30, 41, 59, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30, 41, 59, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .service-row {
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  /* Alternating Backgrounds for visual rhythm */
+  .service-row:nth-child(even) {
+    background-color: rgba(248, 250, 252, 0.8); /* Very light gray */
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative; /* Needed for Spine positioning */
+  }
+
+  /* --- Blueprint Lines --- */
+  
+  /* 1. The Central Spine (Vertical) */
+  .blueprint-spine {
+    position: absolute;
+    left: 50%;
+    top: -6rem; /* Extend up to connect with previous row */
+    bottom: -6rem; /* Extend down to connect with next row */
+    width: 2px;
+    background-image: linear-gradient(to bottom, #cbd5e1 50%, transparent 50%);
+    background-size: 1px 12px; /* Dashed effect */
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+
+  /* 2. The Dot on the Spine */
+  .spine-dot {
+    position: absolute;
+    top: 50%; /* Center of the current row */
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border: 2px solid #38bdf8; /* Brand Blue */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  /* --- Layout --- */
+  .content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .content-wrapper.reverse {
+    flex-direction: row-reverse;
+  }
+
+  /* --- Typography --- */
+  .text-col {
+    flex: 1;
+    position: relative;
+  }
+
+  .service-id {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #e2e8f0; 
+    line-height: 1;
+    display: block;
+    margin-bottom: -1rem;
+    position: relative;
+    z-index: 0;
+  }
+
+  .service-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #1e293b;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .service-title .light {
+    color: #38bdf8; 
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-top: 0.5rem;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #64748b;
+    margin-bottom: 2rem;
+    max-width: 500px;
+  }
+
+  /* --- Feature List --- */
+  .feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .check-icon {
+    width: 20px;
+    height: 20px;
+    color: #38bdf8;
+    flex-shrink: 0;
+  }
+
+  /* --- Image Styling --- */
+  .image-col {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .image-frame {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 4/3;
+  }
+
+  .image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
+  }
+
+  .deco-box {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 60%;
+    height: 60%;
+    border: 4px solid #38bdf8;
+    z-index: 1;
+    border-radius: 4px;
+  }
+
+  .content-wrapper.reverse .deco-box {
+    right: auto;
+    left: -20px;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 1024px) {
+    /* Hide the central spine on smaller screens */
+    .blueprint-spine {
+      display: none; 
+    }
+
+    .text-col {
+      border-left: 4px solid #e2e8f0;
+      padding-left: 2rem;
+    }
+
+    .content-wrapper, 
+    .content-wrapper.reverse {
+      flex-direction: column;
+      gap: 3rem;
+      text-align: left;
+    }
+
+    .service-title { font-size: 2.5rem; }
+    .image-frame { max-width: 100%; }
+    
+    .deco-box { display: none; }
+  }
+</style>

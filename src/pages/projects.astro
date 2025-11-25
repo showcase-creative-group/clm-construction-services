@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+/* Common Components */
+import Footer from '../components/common/Footer.astro';
+
+/* Project-Specific Components */
+import FullWidthHero from '../components/projects/FullWidthHero.astro';
+import ProjectGrid from '../components/projects/ProjectGrid.astro';
+
+/* Data: Featured Project Image */
+const featuredProject = "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop";
+
+/* Data: Grid Images */
+const projects = [
+  "https://images.unsplash.com/photo-1621905251189-fc0153077430?q=80&w=2069&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1605600659873-d808a13e4d2a?q=80&w=2073&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1590486803833-1c5dc8ce84ac?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?q=80&w=2000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1590486803833-1c5dc8ce84ac?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop"
+];
+---
+
+<Layout title="Projects | CLM Construction Services">
+  <main>
+    <FullWidthHero img={featuredProject} />
+    <ProjectGrid images={projects} />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    background-color: white;
+  }
+</style>

@@ -1,66 +1,65 @@
+---
+---
+
 <section class="mission-section">
-  <!-- Top Dark Section -->
   <div class="foundation-block">
     <div class="container split-layout">
       
-      <!-- Left Text -->
       <div class="text-content">
-        <h2>At CLM, We<br/>Build On A Solid<br/>Foundation</h2>
+        <h2>
+          At CLM, We<br/>
+          Build On A<br/>
+          <span class="highlight">Solid Foundation</span>
+        </h2>
       </div>
 
-      <!-- Right "Expertise" Box -->
       <div class="expertise-box">
-        <h3>Our Expertise</h3>
-        <p>
-          Started in Brazos Valley, CLM Construction Services began as an idea to provide quality pipeline services for commercial projects.
-        </p>
-        <p>
-          Now, over 35 years later, we have placed millions of feet of pipe, performed countless utility and earthwork projects, and remained in the growing Brazos Valley of Central Texas.
-        </p>
-        <p><strong>At CLM we Build on a Solid Foundation so your project can succeed.</strong></p>
+        <div class="box-header">
+          <h3>Our Expertise</h3>
+        </div>
+        <div class="box-content">
+          <p>
+            Started in Brazos Valley, CLM Construction Services began as an idea to provide quality pipeline services for commercial projects.
+          </p>
+          <p>
+            Now, over 35 years later, we have placed millions of feet of pipe, performed countless utility and earthwork projects, and remained in the growing Brazos Valley of Central Texas.
+          </p>
+          <p class="mission-statement">At CLM we Build on a Solid Foundation so your project can succeed.</p>
+        </div>
       </div>
 
     </div>
   </div>
 
-  <!-- Bottom Icons Section -->
   <div class="services-grid-container">
     <div class="container grid-layout">
       
-      <!-- Civil Item -->
       <div class="service-item">
-        <div class="icon-box">
-          <!-- Excavator Icon Placeholder (SVG) -->
+        <div class="icon-circle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5"/><path d="M5 12V5a2 2 0 0 1 2-2h7"/><path d="M14 8h5.5a1.5 1.5 0 0 1 1.5 1.5v9"/><path d="M19 12l2.5-3"/><path d="M2 22h20"/><circle cx="8" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
         </div>
         <h4>Civil</h4>
         <p>Public streets, layout, storm sewer, site stabilization, embankments/roads.</p>
       </div>
 
-      <!-- Drainage Item -->
       <div class="service-item">
-        <div class="icon-box">
-          <!-- Circle/Pipe Icon Placeholder -->
+        <div class="icon-circle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
         </div>
         <h4>Drainage</h4>
         <p>Box culverts, detention ponds, concrete channels, underground detention.</p>
       </div>
 
-      <!-- Utilities Item -->
       <div class="service-item">
-        <div class="icon-box">
-           <!-- Hydrant Icon Placeholder -->
+        <div class="icon-circle">
            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M6 5h12"/><path d="M6 19h12"/><rect x="8" y="5" width="8" height="14" rx="2"/></svg>
         </div>
         <h4>Utilities</h4>
         <p>Water, sanitary sewer, fire lines, domestic water, storm sewer.</p>
       </div>
 
-      <!-- Earthwork Item -->
       <div class="service-item">
-        <div class="icon-box">
-          <!-- Bulldozer Icon Placeholder -->
+        <div class="icon-circle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h14"/><path d="M13 17l4-5h4"/><path d="M22 12h-4"/><rect x="4" y="6" width="8" height="8" rx="1"/><circle cx="6" cy="17" r="3"/><circle cx="16" cy="17" r="3"/></svg>
         </div>
         <h4>Earthwork</h4>
@@ -74,95 +73,179 @@
 <style>
   /* --- Top Foundation Section --- */
   .foundation-block {
-    background-color: #555; /* Dark gray based on PDF */
+    /* Updated to Brand Dark Navy */
+    background-color: #1e293b; 
     color: white;
-    padding: 4rem 0;
+    padding: 6rem 0; /* More vertical breathing room */
     position: relative;
+    overflow: hidden;
+  }
+
+  /* Optional: Adds a subtle line texture to the background for industrial feel */
+  .foundation-block::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px);
+    pointer-events: none;
   }
 
   .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
   }
 
   .split-layout {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Aligns top of text with top of box */
     justify-content: space-between;
     gap: 4rem;
   }
 
   h2 {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 1.1;
+    font-size: 4rem; /* Larger for Barlow */
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+    margin: 0;
   }
 
+  /* The accent color text */
+  .highlight {
+    color: #38bdf8;
+    display: block; /* Forces it to its own line */
+    margin-top: 0.5rem;
+  }
+
+  /* --- Expertise Box Styling --- */
   .expertise-box {
-    background-color: #2b7a78; /* Teal color */
-    padding: 2rem;
-    max-width: 500px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    border-radius: 2px;
+    background-color: #0f172a; /* Darker slate for contrast against the background */
+    max-width: 550px;
+    border-radius: 4px;
+    overflow: hidden; /* Keeps border radius clean */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Deep shadow to make it "float" */
+    border-left: 6px solid #38bdf8; /* Blue accent bar on the left */
+  }
+
+  .box-header {
+    background-color: rgba(255,255,255,0.05);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
   }
 
   .expertise-box h3 {
-    margin-top: 0;
+    margin: 0;
     font-size: 1.5rem;
-    border-bottom: 2px solid rgba(255,255,255,0.3);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+  }
+
+  .box-content {
+    padding: 2rem;
   }
 
   .expertise-box p {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     line-height: 1.6;
-    margin-bottom: 1rem;
-    color: #e0f2f1;
+    margin-bottom: 1.5rem;
+    color: #cbd5e1; /* Light gray text */
+  }
+
+  .mission-statement {
+    font-weight: 700;
+    color: white !important;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1.5rem;
+    margin-bottom: 0 !important;
   }
 
   /* --- Bottom Services Section --- */
   .services-grid-container {
     background-color: white;
-    padding: 5rem 0;
+    padding: 6rem 0;
   }
 
   .grid-layout {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    gap: 2.5rem;
     text-align: center;
   }
 
+  /* Icon Circle Container */
+  .icon-circle {
+    width: 80px;
+    height: 80px;
+    background-color: #f1f5f9; /* Very light gray background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    transition: all 0.3s ease;
+  }
+  
+  .icon-circle svg {
+    width: 40px;
+    height: 40px;
+    stroke: #1e293b; /* Dark Navy Icon */
+    stroke-width: 1.5;
+    transition: stroke 0.3s ease;
+  }
+
+  /* Hover Effects for Service Items */
+  .service-item:hover .icon-circle {
+    background-color: #38bdf8; /* Turns blue on hover */
+    transform: translateY(-5px); /* Floats up slightly */
+  }
+
+  .service-item:hover .icon-circle svg {
+    stroke: white; /* Icon turns white */
+  }
+
   .service-item h4 {
-    color: #2b7a78; /* Matching teal */
+    color: #1e293b;
+    font-size: 1.25rem;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin: 1rem 0 0.5rem 0;
+    margin-bottom: 0.75rem;
   }
 
   .service-item p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #64748b;
-    line-height: 1.4;
-  }
-
-  .icon-box svg {
-    width: 64px;
-    height: 64px;
-    stroke: #333;
+    line-height: 1.5;
+    max-width: 250px;
+    margin: 0 auto;
   }
 
   /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    h2 {
+      font-size: 3rem;
+    }
+  }
+
   @media (max-width: 900px) {
     .split-layout {
       flex-direction: column;
+      align-items: center;
       text-align: center;
+    }
+    
+    .expertise-box {
+        max-width: 100%;
     }
 
     .grid-layout {
       grid-template-columns: 1fr 1fr; /* 2 columns on tablet */
+      gap: 3rem;
     }
   }
 
@@ -172,7 +255,11 @@
     }
     
     h2 {
-      font-size: 2.25rem;
+      font-size: 2.5rem;
+    }
+    
+    .foundation-block {
+        padding: 4rem 0;
     }
   }
 </style>

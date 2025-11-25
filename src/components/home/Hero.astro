@@ -32,7 +32,7 @@
     justify-content: center; 
     color: white;
     overflow: hidden;
-    background-color: #1e293b;
+    background-color: var(--color-primary); /* Updated to use Brand Navy */
   }
 
   .hero-video {
@@ -87,7 +87,8 @@
 
   /* Defines the "starting state" for lines: invisible and shifted down */
   .text-line, .tagline {
-    display: block; /* Ensures they stack like lines */
+    display: block;
+    /* Ensures they stack like lines */
     opacity: 0;
     transform: translateY(40px);
     animation: fadeInUp 0.8s ease-out forwards;
@@ -104,30 +105,22 @@
   .tagline {
     font-size: 1.25rem;
     background-color: white;
-    color: #1e293b; 
+    color: var(--color-primary); /* Updated to Brand Navy text */
     display: inline-block;
     padding: 0.5rem 1rem;
     font-weight: 600;
     border-radius: 2px;
   }
 
-  /* Tablet Adjustments */
-  @media (max-width: 1024px) {
-    h1 {
-      /* Adjusted proportionally */
-      font-size: 3.5rem;
-    }
-  }
-
-  /* Mobile Adjustments */
-  @media (max-width: 768px) {
+  /* Unified Mobile/Tablet Breakpoint */
+  @media (max-width: 992px) {
     .hero {
       min-height: 70vh;
     }
 
     h1 {
-      /* Safe size for mobile phones */
-      font-size: 2.25rem;
+      /* Safe size for tablets and mobile phones */
+      font-size: 2.5rem;
       line-height: 1.0; 
     }
   }

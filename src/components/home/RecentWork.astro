@@ -1,5 +1,4 @@
 ---
-/* UPDATED: 6 Images, no text overlays. */
 const projects = [
   {
     img: "https://media.clmconstructionservices.com/home/h_1.webp"
@@ -32,12 +31,12 @@ const projects = [
       </div>
       
       <div class="controls">
-        <button id="prevBtn" class="nav-btn" aria-label="Previous Project">
+        <button id="prevBtn" class="nav-btn" aria-label="Previous Project" type="button">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
           </svg>
         </button>
-        <button id="nextBtn" class="nav-btn" aria-label="Next Project">
+        <button id="nextBtn" class="nav-btn" aria-label="Next Project" type="button">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
@@ -45,7 +44,7 @@ const projects = [
       </div>
     </div>
 
-    <div class="slider-container">
+    <div class="slider-container" id="slider-container">
       <div class="slider-track" id="track">
         {projects.map((project) => (
           <div class="slide">
@@ -85,7 +84,7 @@ const projects = [
     font-size: 3.5rem;
     font-weight: 800;
     text-transform: uppercase;
-    color: #1e293b;
+    color: var(--color-primary); /* Brand Navy */
     line-height: 1;
     margin: 0;
   }
@@ -93,7 +92,7 @@ const projects = [
   .bar {
     width: 60px;
     height: 6px;
-    background-color: #38bdf8;
+    background-color: var(--color-accent); /* Brand Aqua */
     margin-top: 1rem;
   }
 
@@ -104,7 +103,7 @@ const projects = [
   }
 
   .nav-btn {
-    background: #1e293b;
+    background: var(--color-primary); /* Brand Navy */
     border: none;
     width: 50px;
     height: 50px;
@@ -118,13 +117,14 @@ const projects = [
   }
 
   .nav-btn:hover {
-    background-color: #38bdf8;
+    background-color: var(--color-accent); /* Brand Aqua */
     transform: scale(1.05);
   }
 
   .nav-btn svg {
     width: 24px;
     height: 24px;
+    pointer-events: none;
   }
 
   /* Slider Logic */
@@ -141,7 +141,7 @@ const projects = [
 
   .slider-track {
     display: flex;
-    gap: 2rem; /* 2rem = 32px approx */
+    gap: 2rem;
   }
 
   .slide {
@@ -169,26 +169,18 @@ const projects = [
     transform: scale(1.03);
   }
 
-  /* --- Breakpoints --- */
+  /* --- Breakpoints: Unified 992px Rule --- */
   
-  /* Tablet: 2 slides */
-  @media (min-width: 768px) {
-    .slide {
-      flex: 0 0 calc(50% - 1rem);
-      max-width: calc(50% - 1rem);
-    }
-  }
-
   /* Desktop: 3 slides */
-  @media (min-width: 1200px) {
+  @media (min-width: 993px) {
     .slide {
-      flex: 0 0 calc(33.333% - 1.33rem); 
+      flex: 0 0 calc(33.333% - 1.33rem);
       max-width: calc(33.333% - 1.33rem);
     }
   }
 
-  /* Mobile Adjustments */
-  @media (max-width: 768px) {
+  /* Tablet/Mobile: 1 slide (or partial) */
+  @media (max-width: 992px) {
     .section-header {
       flex-direction: column;
       align-items: flex-start;
@@ -199,48 +191,57 @@ const projects = [
       font-size: 2.5rem;
     }
 
+    .slide {
+      /* Show 1 slide + a peek of the next one for UX cue */
+      flex: 0 0 85%;
+      max-width: 85%;
+    }
+
     .image-card {
-      height: 350px; 
+      height: 350px;
     }
   }
 </style>
 
 <script>
-  /* UPDATED: JavaScript to handle infinite Cycling */
+  // UPDATED: Now selecting the container that actually has the scroll bar
+  const container = document.getElementById('slider-container');
   const track = document.getElementById('track');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
 
-  if (track && prevBtn && nextBtn) {
+  if (container && track && prevBtn && nextBtn) {
     
-    const getSlideWidth = () => {
+    const getScrollAmount = () => {
       const slide = track.querySelector('.slide');
-      // Width of slide + the gap (2rem = 32px)
-      return slide ? slide.clientWidth + 32 : 0;
+      if (!slide) return 0;
+      
+      // Get the gap from the track flex container
+      const style = window.getComputedStyle(track);
+      const gap = parseFloat(style.gap || style.columnGap) || 32; 
+      
+      return slide.clientWidth + gap;
     };
 
     nextBtn.addEventListener('click', () => {
-      const slideWidth = getSlideWidth();
-      const maxScroll = track.scrollWidth - track.clientWidth;
+      const amount = getScrollAmount();
+      // Scroll the container, not the track
+      const maxScroll = container.scrollWidth - container.clientWidth;
       
-      // If we are within 10px of the end, loop back to start
-      if (track.scrollLeft >= maxScroll - 10) {
-        track.scrollTo({ left: 0, behavior: 'smooth' });
+      if (container.scrollLeft >= maxScroll - 10) {
+        container.scrollTo({ left: 0, behavior: 'smooth' });
       } else {
-        // Otherwise scroll normally
-        track.scrollBy({ left: slideWidth, behavior: 'smooth' });
+        container.scrollBy({ left: amount, behavior: 'smooth' });
       }
     });
 
     prevBtn.addEventListener('click', () => {
-      const slideWidth = getSlideWidth();
+      const amount = getScrollAmount();
       
-      // If we are at the start, loop to the end
-      if (track.scrollLeft <= 10) {
-        track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+      if (container.scrollLeft <= 10) {
+        container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
       } else {
-        // Otherwise scroll back
-        track.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+        container.scrollBy({ left: -amount, behavior: 'smooth' });
       }
     });
   }

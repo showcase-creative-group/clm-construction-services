@@ -1,12 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo.svg';
+
 const pathname = Astro.url.pathname;
 
-// Helper to determine if a link is active
 const isActive = (href: string) => {
-  if (href === '/') {
-    return pathname === '/';
-  }
-  // Starts with ensures sub-pages (e.g. /projects/1) also highlight 'Projects'
+  if (href === '/') return pathname === '/';
   return pathname.startsWith(href);
 };
 ---
@@ -14,11 +13,16 @@ const isActive = (href: string) => {
 <header class="site-header">
   <div class="container">
     <a href="/" class="brand">
-      <span class="clm">CLM</span>
-      <span class="services">Construction Services</span>
+      <Image src={logo} alt="CLM Construction Services" class="logo-img" loading="eager" />
     </a>
 
-    <nav>
+    <button id="mobile-toggle" class="mobile-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+
+    <nav id="nav-menu" class="nav-menu">
       <a href="/" class:list={["nav-link", { active: isActive('/') }]}>HOME</a>
       <a href="/projects" class:list={["nav-link", { active: isActive('/projects') }]}>PROJECTS</a>
       <a href="/services" class:list={["nav-link", { active: isActive('/services') }]}>SERVICES</a>
@@ -27,17 +31,17 @@ const isActive = (href: string) => {
 </header>
 
 <style>
-  /* Scoped CSS */
-  
   .site-header {
-    background-color: #1e293b;
-    color: white;
-    padding: 1.25rem 0; /* Increased padding slightly for better breathing room */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    /* Slightly stronger shadow */
-    position: relative;
-    z-index: 100;
-    /* Ensures header stays on top of content */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 3px solid var(--color-primary); 
+    box-shadow: 0 4px 20px rgba(27, 58, 105, 0.1);
+    padding: 0.75rem 0; 
+    transition: all 0.3s ease;
   }
 
   .container {
@@ -49,86 +53,165 @@ const isActive = (href: string) => {
     align-items: center;
   }
 
-  /* Logo Styles */
   .brand {
     text-decoration: none;
-    color: white;
     display: flex;
-    flex-direction: column;
-    line-height: 1; /* Tighter line height prevents gap between CLM and Services */
-    font-weight: 800;
-    /* Uses the extra bold weight of Barlow */
+    align-items: center;
+    max-width: 300px;
+    z-index: 1001; 
   }
 
-  .clm {
-    font-size: 2.25rem;
-    /* Much larger */
-    color: #38bdf8; 
-    letter-spacing: 1px;
+  .logo-img {
+    height: 4rem; 
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   }
 
-  .services {
-    font-size: 1rem;
-    /* Increased size */
-    text-transform: uppercase;
-    color: #cbd5e1; 
-    letter-spacing: 2px;
-    /* Wider spacing makes small caps look premium */
-    margin-top: 4px;
-    /* Small gap between text */
-    font-weight: 600;
-  }
-
-  /* Navigation Styles */
-  nav {
+  .nav-menu {
     display: flex;
     gap: 2.5rem;
-    /* More space between links */
+    align-items: center;
   }
 
   .nav-link {
     text-decoration: none;
-    color: white;
+    color: var(--color-primary); 
     font-weight: 700;
-    /* Bold to match the industrial feel */
     font-size: 1.125rem;
-    /* Increased from 0.9rem to 1.125rem */
     letter-spacing: 1px;
     transition: color 0.2s ease;
-    /* Added for underline positioning */
     position: relative;
     padding-bottom: 4px;
   }
 
-  .nav-link:hover {
-    color: #38bdf8; 
-  }
-
-  /* Active State Styles */
+  .nav-link:hover,
   .nav-link.active {
-    color: #38bdf8;
+    color: var(--color-accent); 
   }
 
   .nav-link.active::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -3px; 
     left: 0;
     width: 100%;
-    height: 3px; /* Thickness of underline */
-    background-color: #38bdf8;
+    height: 3px;
+    background-color: var(--color-accent);
     border-radius: 2px;
   }
 
-  /* Mobile responsiveness */
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      gap: 1.5rem;
+  .mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+  }
+
+  .hamburger-box {
+    width: 30px;
+    height: 24px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .hamburger-inner {
+    display: block;
+    top: 50%;
+    margin-top: -2px;
+  }
+
+  .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+    width: 30px;
+    height: 3px;
+    background-color: var(--color-primary);
+    border-radius: 3px;
+    position: absolute;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .hamburger-inner::before, .hamburger-inner::after {
+    content: "";
+    display: block;
+  }
+
+  .hamburger-inner::before { top: -10px; }
+  .hamburger-inner::after { bottom: -10px; }
+
+  .mobile-toggle.active .hamburger-inner {
+    background-color: transparent;
+  }
+  .mobile-toggle.active .hamburger-inner::before {
+    transform: translateY(10px) rotate(45deg);
+    background-color: var(--color-accent);
+  }
+  .mobile-toggle.active .hamburger-inner::after {
+    transform: translateY(-10px) rotate(-45deg);
+    background-color: var(--color-accent);
+  }
+
+  /* UPDATED: Unified Mobile Breakpoint */
+  @media (max-width: 992px) {
+    .logo-img {
+      height: 3.5rem; 
     }
-    
+
+    .mobile-toggle {
+      display: block; 
+    }
+
+    .nav-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      flex-direction: column;
+      background-color: white;
+      padding: 2rem 0;
+      gap: 2rem;
+      border-bottom: 3px solid var(--color-primary);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      
+      transform: translateY(-150%);
+      opacity: 0;
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    .nav-menu.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
     .nav-link {
-        font-size: 1rem;
+      font-size: 1.25rem;
     }
   }
 </style>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-toggle');
+  const navMenu = document.getElementById('nav-menu');
+
+  if (toggleBtn && navMenu) {
+    toggleBtn.addEventListener('click', () => {
+      const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      
+      toggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+      toggleBtn.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggleBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>

@@ -1,5 +1,4 @@
 ---
-// UPDATED: Import from the new 'common' subfolder
 import Header from '../components/common/Header.astro';
 
 interface Props {
@@ -13,7 +12,7 @@ const { title } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content="Premier Brazos Valley earthwork and utility contractor." />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
@@ -33,26 +32,25 @@ const { title } = Astro.props;
 
 <style is:global>
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+		--clm-navy: #1B3A69;
+		--clm-teal: #31888D;
+		--clm-aqua: #46C4C1;
+		--clm-gray: #636466;
+		
+		--color-primary: var(--clm-navy);
+		--color-accent: var(--clm-aqua);
+		--color-secondary: var(--clm-teal);
+		--color-text-main: var(--clm-gray);
 	}
 	
 	html {
-		/* Uses the Barlow font we added */
 		font-family: 'Barlow', sans-serif; 
-		background: #f6f6f6; /* Light gray background for the page body */
+		background: #f6f6f6;
 		margin: 0;
 		padding: 0;
+		color: var(--color-text-main);
 	}
 	
-	/* Reset default body margin so header touches the edges */
 	body {
 		margin: 0;
 		padding: 0;

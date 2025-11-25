@@ -1,0 +1,235 @@
+---
+/* Services.astro */
+
+const services = [
+  {
+    id: "01",
+    title: "Civil",
+    desc: "All aspects of new civil construction; subgrade preparation, earthwork, and base stabilization.",
+    img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop",
+    icon: "fi-rs-builder" /* Now available with the CDN update */
+  },
+  {
+    id: "02",
+    title: "Drainage",
+    desc: "Culvert installs, open air swales, channels, and hydronic drainage piping.",
+    img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop",
+    icon: "fi-rs-manhole"
+  },
+  {
+    id: "03",
+    title: "Utilities",
+    desc: "HDPE domestic water and sanitary sewer systems, lift stations, and oil & gas applications.",
+    img: "https://images.unsplash.com/photo-1605600659908-0ef719419d41?q=80&w=2073&auto=format&fit=crop",
+    icon: "fi-rs-industry-alt"
+  },
+  {
+    id: "04",
+    title: "Earthwork",
+    desc: "Clearing and grubbing, site grading, soil compaction, and material & debris haul off.",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop",
+    icon: "fi-rs-excavator" /* Now available with the CDN update */
+  }
+];
+---
+
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+
+<section class="services-section">
+  <div class="services-block-grid">
+    {services.map((service, index) => (
+      <div 
+        class="service-block animate-fade-up" 
+        style={`--hover-bg: url('${service.img}'); transition-delay: ${index * 100}ms;`}
+      >
+        <div class="hover-bg-layer"></div>
+        <div class="hover-overlay-layer"></div>
+
+        <div class="block-content">
+          <div class="service-header">
+             <span class="service-number">{service.id}</span>
+             <i class={`fi ${service.icon} service-icon`}></i>
+          </div>
+
+          <h3 class="service-title">{service.title}</h3>
+          <p class="service-desc">{service.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .services-section {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .services-block-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+  }
+
+  .service-block {
+    position: relative;
+    background-color: #1e293b;
+    color: white;
+    padding: 3.5rem 2rem; 
+    border-right: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 500px;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  /* --- Header & Icon Styling --- */
+  .service-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+
+  .service-number {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0; 
+    font-weight: 500;
+  }
+
+  .service-icon {
+    font-size: 3rem;  /* Size of the icon */
+    color: #38bdf8;   /* Brand Blue */
+    line-height: 1;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  /* Hover Effect: Pop up and turn white */
+  .service-block:hover .service-icon {
+    transform: scale(1.1) rotate(-5deg);
+    color: #ffffff;
+  }
+
+  /* --- Content Styling --- */
+  .block-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.9;
+    margin: 0 0 1.5rem 0;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  .service-desc {
+    font-size: 1.35rem; 
+    line-height: 1.4; 
+    font-weight: 500;
+    color: #e2e8f0;
+    margin-bottom: auto;
+  }
+
+  /* --- Background Hover Logic --- */
+  .hover-bg-layer {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: var(--hover-bg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out, transform 6s linear;
+  }
+
+  .hover-overlay-layer {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.75);
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .service-block:hover .hover-bg-layer {
+    opacity: 1;
+    transform: scale(1.1);
+    transition: opacity 0.5s ease-in-out, transform 6s linear;
+  }
+
+  .service-block:hover .hover-overlay-layer {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* --- Animation Utilities --- */
+  .animate-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .animate-fade-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 1200px) {
+    .services-block-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .service-title { font-size: 3rem; }
+  }
+
+  @media (max-width: 768px) {
+    .services-block-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-block {
+        min-height: auto; 
+        padding: 3rem 1.5rem;
+    }
+
+    .service-title { font-size: 2.5rem; }
+    .service-icon { font-size: 2.5rem; }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.animate-fade-up').forEach((el) => {
+    observer.observe(el);
+  });
+</script>

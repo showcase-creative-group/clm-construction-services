@@ -10,7 +10,7 @@ const isActive = (href: string) => {
 };
 ---
 
-<header class="site-header">
+<header id="site-header" class="site-header">
   <div class="container">
     <a href="/" class="brand">
       <Image src={logo} alt="CLM Construction Services" class="logo-img" loading="eager" />
@@ -31,17 +31,34 @@ const isActive = (href: string) => {
 </header>
 
 <style>
+  /* --- Base Header Styles --- */
   .site-header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    
+    /* Default: Glassmorphism */
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px); 
     -webkit-backdrop-filter: blur(12px);
+    
+    /* Definition: Navy Bottom Border & Soft Shadow */
     border-bottom: 3px solid var(--color-primary); 
     box-shadow: 0 4px 20px rgba(27, 58, 105, 0.1);
+    
     padding: 0.75rem 0; 
-    transition: all 0.3s ease;
+    
+    /* Transitions for seamless open/close state */
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Seamless Mobile State: Removes separation when menu is open */
+  .site-header.menu-open {
+    background-color: white;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom-color: transparent; 
+    box-shadow: none; 
   }
 
   .container {
@@ -53,6 +70,7 @@ const isActive = (href: string) => {
     align-items: center;
   }
 
+  /* --- Logo --- */
   .brand {
     text-decoration: none;
     display: flex;
@@ -68,6 +86,7 @@ const isActive = (href: string) => {
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   }
 
+  /* --- Navigation --- */
   .nav-menu {
     display: flex;
     gap: 2.5rem;
@@ -101,6 +120,7 @@ const isActive = (href: string) => {
     border-radius: 2px;
   }
 
+  /* --- Mobile Toggle Button --- */
   .mobile-toggle {
     display: none;
     background: none;
@@ -140,6 +160,7 @@ const isActive = (href: string) => {
   .hamburger-inner::before { top: -10px; }
   .hamburger-inner::after { bottom: -10px; }
 
+  /* Hamburger Active State */
   .mobile-toggle.active .hamburger-inner {
     background-color: transparent;
   }
@@ -152,7 +173,7 @@ const isActive = (href: string) => {
     background-color: var(--color-accent);
   }
 
-  /* UPDATED: Unified Mobile Breakpoint */
+  /* --- Mobile Styles (992px) --- */
   @media (max-width: 992px) {
     .logo-img {
       height: 3.5rem; 
@@ -168,12 +189,16 @@ const isActive = (href: string) => {
       left: 0;
       width: 100%;
       flex-direction: column;
-      background-color: white;
+      
+      /* Solid white background matches 'menu-open' header */
+      background-color: white; 
+      
       padding: 2rem 0;
       gap: 2rem;
       border-bottom: 3px solid var(--color-primary);
       box-shadow: 0 10px 15px rgba(0,0,0,0.1);
       
+      /* Hidden State */
       transform: translateY(-150%);
       opacity: 0;
       transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -194,22 +219,28 @@ const isActive = (href: string) => {
 </style>
 
 <script>
+  const header = document.getElementById('site-header');
   const toggleBtn = document.getElementById('mobile-toggle');
   const navMenu = document.getElementById('nav-menu');
 
-  if (toggleBtn && navMenu) {
+  if (toggleBtn && navMenu && header) {
     toggleBtn.addEventListener('click', () => {
       const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
       
       toggleBtn.setAttribute('aria-expanded', String(!isExpanded));
       toggleBtn.classList.toggle('active');
       navMenu.classList.toggle('active');
+      
+      // Toggle seamless look on header
+      header.classList.toggle('menu-open');
     });
 
+    // Close menu when clicking a link
     navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         toggleBtn.classList.remove('active');
         navMenu.classList.remove('active');
+        header.classList.remove('menu-open');
         toggleBtn.setAttribute('aria-expanded', 'false');
       });
     });

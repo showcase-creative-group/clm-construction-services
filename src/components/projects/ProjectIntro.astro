@@ -1,0 +1,76 @@
+---
+/* ProjectIntro.astro */
+---
+
+<section class="project-intro">
+  <div class="container">
+    <div class="intro-content">
+      <h2>Our <span class="highlight">Projects</span></h2>
+      <p>
+        From complex municipal infrastructure to large-scale commercial site preparation, 
+        explore our gallery to see the scope and quality of our work across the Brazos Valley.
+      </p>
+      <div class="bar"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .project-intro {
+    background-color: white;
+    padding: 6rem 0 2rem 0; /* Top padding separates from Hero, bottom padding flows into Grid */
+    text-align: center;
+  }
+
+  .container {
+    max-width: 800px; /* Limits width for better readability */
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .intro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  h2 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--color-primary); /* Brand Navy */
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .highlight {
+    color: var(--color-accent); /* Brand Aqua */
+  }
+
+  p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--color-text-main); /* Brand Gray */
+    margin: 0;
+  }
+
+  .bar {
+    width: 80px;
+    height: 6px;
+    background-color: var(--color-accent); /* Brand Aqua */
+    margin-top: 1rem;
+    border-radius: 3px;
+  }
+
+  /* Unified 992px Breakpoint */
+  @media (max-width: 992px) {
+    .project-intro {
+      padding: 4rem 0 1rem 0;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+</style>

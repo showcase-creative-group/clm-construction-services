@@ -6,6 +6,7 @@ import Footer from '../components/common/Footer.astro';
 
 /* Project-Specific Components */
 import FullWidthHero from '../components/projects/FullWidthHero.astro';
+import ProjectIntro from '../components/projects/ProjectIntro.astro'; /* NEW IMPORT */
 import ProjectGrid from '../components/projects/ProjectGrid.astro';
 
 /* Data: Featured Project Image */
@@ -46,7 +47,7 @@ const projects = [
 <Layout title="Projects | CLM Construction Services">
   <main>
     <FullWidthHero img={featuredProject} />
-    <ProjectGrid images={projects} />
+    <ProjectIntro /> <ProjectGrid images={projects} />
   </main>
   <Footer />
 </Layout>
@@ -54,5 +55,6 @@ const projects = [
 <style>
   main {
     background-color: white;
+    min-height: 100vh;
   }
 </style>

@@ -1,16 +1,16 @@
 ---
-/* Data extracted and cleaned */
 const services = [
   {
     id: "01",
     title: "Civil",
     subtitle: "Civil Construction",
-    description: "We provide comprehensive civil construction services for public and private sectors, ensuring every project starts with a solid framework.",
+    slug: "civil",
+    description: "We clear and build out your project's civil construction in an orderly fashion allowing yourself and clients key access to your location.",
     features: [
-      "Public Streets & Layouts",
-      "Storm Sewer Systems",
-      "Site Stabilization",
-      "Embankments & Roads"
+      "Roadway and Utility Subgrade Prep",
+      "Lime and Cement Stabilization",
+      "Asphalt Paving & Repair",
+      "Erosion & Environmental Controls"
     ],
     img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop"
   },
@@ -18,12 +18,13 @@ const services = [
     id: "02",
     title: "Drainage",
     subtitle: "Drainage Systems",
-    description: "Expert installation and repair of complex drainage systems to manage water flow effectively and protect your infrastructure.",
+    slug: "drainage",
+    description: "CLM Construction Services create, repairs, and installs the drainage systems needed to make sure your project and site flows properly.",
     features: [
-      "HDPE Hydraulic Drainage",
-      "Open Air Drainage Basins & Channels",
-      "Drainage Ditch Repairs",
-      "Box Culverts & Concrete Channels"
+      "HDPE Hydronic Drainage",
+      "Open Air Drainage Swales and Channels",
+      "Culvert Installation",
+      "Drainage Ditch Repairs"
     ],
     img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop"
   },
@@ -31,12 +32,13 @@ const services = [
     id: "03",
     title: "Utility",
     subtitle: "Utility Infrastructure",
-    description: "From water to gas, we handle the critical infrastructure that powers and serves our communities with precision and safety.",
+    slug: "utilities",
+    description: "We install the crucial infrastructure needed for systems and facilities that provide essential services such as domestic water, waste management and storm sewer utilities.",
     features: [
       "HDPE Domestic Water Piping Systems",
-      "HDPE Sanitary Sewer Systems & Lift Stations",
+      "HDPE Sanitary Sewer Systems and Lift Stations",
       "Natural Gas and Oil & Gas Applications",
-      "Repair & Replacement of Existing Systems"
+      "Repair and Replacement of Existing Utility Systems"
     ],
     img: "https://images.unsplash.com/photo-1605600659908-0ef719419d41?q=80&w=2073&auto=format&fit=crop"
   },
@@ -44,12 +46,13 @@ const services = [
     id: "04",
     title: "Earthwork",
     subtitle: "Earthwork Solutions",
-    description: "Our earthwork services include all aspects of new civil construction. We work with a myriad of clients from large scale institutions to private farms.",
+    slug: "earthwork",
+    description: "Our earthwork services serve a myriad of clients. From large scale institutions and commercial general contractors, to rural farm and ranch entities we seek to provide exceptional earthwork solutions.",
     features: [
-      "Earthwork & Grading",
-      "Roadway & Utility Subgrade Prep",
-      "Lime & Cement Stabilization",
-      "Clearing, Grubbing, Haul-off & Clean up"
+      "Earthwork, Grading, and Soil Compaction",
+      "Excavation and Trenching",
+      "Clearing and Grubbing Site Preparation",
+      "Material & Debris Handling and Haul off"
     ],
     img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop"
   }
@@ -58,19 +61,27 @@ const services = [
 
 <section class="services-list">
   {services.map((service, index) => (
-    <div class="service-row">
+    <div id={service.slug} class="service-row">
       <div class="container">
         
-        <div class="blueprint-spine">
+        <div class="spine-wrapper">
+          <div class="spine-line"></div>
           <div class="spine-dot"></div>
         </div>
 
         <div class={`content-wrapper ${index % 2 === 1 ? 'reverse' : ''}`}>
           
-          <div class="text-col">
+          <div class="text-col animate-fade-up">
             
-            <span class="service-id">{service.id}</span>
-            <h2 class="service-title">{service.title} <span class="light">{service.subtitle}</span></h2>
+            <div class="service-header-block">
+              <h2 class="service-title">
+                <span class="id-number">{service.id}</span> 
+                <span class="separator">—</span> 
+                {service.title}
+              </h2>
+              <span class="subtitle">{service.subtitle}</span>
+            </div>
+
             <p class="description">{service.description}</p>
             
             <ul class="feature-list">
@@ -83,10 +94,9 @@ const services = [
             </ul>
           </div>
 
-          <div class="image-col">
+          <div class="image-col animate-fade-up delay-100">
             <div class="image-frame">
               <img src={service.img} alt={service.title} loading="lazy" />
-              <div class="deco-box"></div>
             </div>
           </div>
 
@@ -101,65 +111,64 @@ const services = [
     background-color: white;
     position: relative;
     overflow: hidden;
-    
-    /* --- Blueprint Grid Pattern --- */
-    background-image: 
-      linear-gradient(rgba(30, 41, 59, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(30, 41, 59, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
   }
 
   .service-row {
     padding: 6rem 0;
     position: relative;
+    scroll-margin-top: 100px; 
   }
 
-  /* Alternating Backgrounds for visual rhythm */
   .service-row:nth-child(even) {
-    background-color: rgba(248, 250, 252, 0.8); /* Very light gray */
+    background-color: rgba(248, 250, 252, 0.5);
   }
 
   .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 1.5rem;
-    position: relative; /* Needed for Spine positioning */
+    position: relative;
   }
 
-  /* --- Blueprint Lines --- */
-  
-  /* 1. The Central Spine (Vertical) */
-  .blueprint-spine {
+  /* --- Spine --- */
+  .spine-wrapper {
     position: absolute;
     left: 50%;
-    top: -6rem; /* Extend up to connect with previous row */
-    bottom: -6rem; /* Extend down to connect with next row */
-    width: 2px;
-    background-image: linear-gradient(to bottom, #cbd5e1 50%, transparent 50%);
-    background-size: 1px 12px; /* Dashed effect */
+    top: 0;
+    bottom: 0;
     transform: translateX(-50%);
     z-index: 0;
+    width: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* 2. The Dot on the Spine */
-  .spine-dot {
+  .spine-line {
     position: absolute;
-    top: 50%; /* Center of the current row */
-    left: 50%;
-    width: 12px;
-    height: 12px;
+    top: -6rem; 
+    bottom: -6rem; 
+    width: 2px;
+    background-image: linear-gradient(to bottom, rgba(27, 58, 105, 0.25) 50%, transparent 50%);
+    background-size: 1px 12px;
+  }
+
+  .spine-dot {
+    width: 14px;
+    height: 14px;
     background-color: white;
-    border: 2px solid #38bdf8; /* Brand Blue */
+    border: 3px solid var(--color-accent);
     border-radius: 50%;
-    transform: translate(-50%, -50%);
     z-index: 1;
+    position: relative;
   }
 
   /* --- Layout --- */
   .content-wrapper {
     display: flex;
     align-items: center;
-    gap: 5rem;
+    gap: 6rem; 
     position: relative;
     z-index: 1;
   }
@@ -168,48 +177,70 @@ const services = [
     flex-direction: row-reverse;
   }
 
-  /* --- Typography --- */
   .text-col {
     flex: 1;
     position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
-  .service-id {
-    font-size: 4rem;
-    font-weight: 800;
-    color: #e2e8f0; 
-    line-height: 1;
-    display: block;
-    margin-bottom: -1rem;
-    position: relative;
-    z-index: 0;
+  /* --- DESKTOP ALIGNMENT LOGIC (The "Hug" Effect) --- */
+  @media (min-width: 993px) {
+    .content-wrapper:not(.reverse) .text-col {
+      align-items: flex-end; 
+      text-align: right;     
+    }
+
+    .content-wrapper:not(.reverse) .service-title {
+      justify-content: flex-end; 
+    }
+
+    .content-wrapper:not(.reverse) .feature-list li {
+      flex-direction: row-reverse; 
+    }
+  }
+
+  /* --- Typography --- */
+  .service-header-block {
+    margin-bottom: 1.5rem;
   }
 
   .service-title {
-    font-size: 3rem;
+    font-size: clamp(2rem, 3.5vw, 3rem);
     font-weight: 800;
-    color: #1e293b;
+    color: var(--color-primary); 
     text-transform: uppercase;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    position: relative;
-    z-index: 1;
+    line-height: 1;
+    margin: 0 0 0.5rem 0; 
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 0.5rem;
   }
 
-  .service-title .light {
-    color: #38bdf8; 
+  .id-number {
+    color: var(--color-accent); 
+  }
+
+  .separator {
+    color: rgba(27, 58, 105, 0.3); 
+    margin: 0 0.25rem;
+  }
+
+  .subtitle {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 600;
+    color: var(--color-accent); 
     letter-spacing: 2px;
-    margin-top: 0.5rem;
+    text-transform: uppercase;
   }
 
   .description {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #64748b;
-    margin-bottom: 2rem;
+    color: var(--color-text-main); 
+    margin: 0 0 1.5rem 0;
     max-width: 500px;
   }
 
@@ -228,17 +259,17 @@ const services = [
     gap: 1rem;
     font-size: 1.1rem;
     font-weight: 600;
-    color: #1e293b;
+    color: var(--color-primary); 
   }
 
   .check-icon {
     width: 20px;
     height: 20px;
-    color: #38bdf8;
+    color: var(--color-accent); 
     flex-shrink: 0;
   }
 
-  /* --- Image Styling --- */
+  /* --- Image --- */
   .image-col {
     flex: 1;
     display: flex;
@@ -248,7 +279,8 @@ const services = [
   .image-frame {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    /* UPDATED: Reduced from 600px to 520px */
+    max-width: 520px;
     aspect-ratio: 4/3;
   }
 
@@ -262,32 +294,37 @@ const services = [
     box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
   }
 
-  .deco-box {
-    position: absolute;
-    bottom: -20px;
-    right: -20px;
-    width: 60%;
-    height: 60%;
-    border: 4px solid #38bdf8;
-    z-index: 1;
-    border-radius: 4px;
+  /* --- Animation --- */
+  .animate-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
 
-  .content-wrapper.reverse .deco-box {
-    right: auto;
-    left: -20px;
+  .animate-fade-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  /* --- Responsive --- */
-  @media (max-width: 1024px) {
-    /* Hide the central spine on smaller screens */
-    .blueprint-spine {
-      display: none; 
+  .delay-100 {
+    transition-delay: 0.1s;
+  }
+
+  /* --- Responsive: Unified 992px Breakpoint --- */
+  @media (max-width: 992px) {
+    .spine-wrapper {
+      left: 1.5rem; 
+      transform: none;
+      align-items: flex-start; 
+    }
+    
+    .spine-dot {
+      margin-left: -6px; 
+      top: 1.5rem; 
     }
 
-    .text-col {
-      border-left: 4px solid #e2e8f0;
-      padding-left: 2rem;
+    .spine-line {
+      left: 0;
     }
 
     .content-wrapper, 
@@ -295,11 +332,41 @@ const services = [
       flex-direction: column;
       gap: 3rem;
       text-align: left;
+      align-items: stretch;
+      padding-left: 3rem; 
     }
 
-    .service-title { font-size: 2.5rem; }
-    .image-frame { max-width: 100%; }
-    
-    .deco-box { display: none; }
+    .content-wrapper:not(.reverse) .feature-list li {
+      flex-direction: row !important;
+    }
+
+    .content-wrapper:not(.reverse) .service-title {
+      justify-content: flex-start !important;
+    }
+
+    .image-frame { 
+      max-width: 100%;
+    }
   }
 </style>
+
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.animate-fade-up').forEach((el) => {
+    observer.observe(el);
+  });
+</script>

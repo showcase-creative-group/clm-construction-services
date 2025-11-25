@@ -21,6 +21,7 @@ const { images } = Astro.props;
 <style>
   .gallery-section {
     padding: 4rem 0 6rem 0;
+    background-color: white;
   }
 
   .container {
@@ -40,8 +41,8 @@ const { images } = Astro.props;
     aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: 4px;
-    background-color: #e2e8f0;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    background-color: #e2e8f0; /* Placeholder gray is fine, or use var(--color-primary) with low opacity */
+    box-shadow: 0 4px 12px rgba(27, 58, 105, 0.1); /* Navy shadow */
     cursor: pointer;
   }
 
@@ -56,20 +57,18 @@ const { images } = Astro.props;
     transform: scale(1.03);
   }
 
-  /* Responsive */
-  @media (max-width: 1024px) {
+  /* Unified 992px Breakpoint */
+  @media (max-width: 992px) {
     .grid {
-      grid-template-columns: repeat(2, 1fr);
+      /* Switching directly to 1 column for strict consistency, 
+         or we can do 2 columns here if you prefer. 
+         Let's stick to the requested rule: */
+      grid-template-columns: 1fr; 
+      gap: 1.5rem;
     }
-  }
-
-  @media (max-width: 600px) {
+    
     .gallery-section {
       padding: 3rem 0;
-    }
-    .grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
     }
   }
 </style>

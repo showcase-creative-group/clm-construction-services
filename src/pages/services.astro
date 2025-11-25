@@ -6,7 +6,6 @@ import ServiceList from '../components/services/ServiceList.astro';
 
 <Layout title="Services | CLM Construction Services">
   <main>
-
     <ServiceList />
   </main>
   <Footer />
@@ -15,37 +14,6 @@ import ServiceList from '../components/services/ServiceList.astro';
 <style>
   main {
     background-color: white;
-  }
-
-  .page-header {
-    background-color: #1e293b; /* Dark Navy */
-    color: white;
-    padding: 6rem 0 4rem 0;
-    text-align: center;
-  }
-
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  h1 {
-    font-size: 4rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    margin: 0 0 1rem 0;
-    line-height: 1;
-  }
-
-  p {
-    font-size: 1.25rem;
-    color: #cbd5e1;
-    margin: 0;
-  }
-
-  @media (max-width: 768px) {
-    h1 { font-size: 3rem; }
-    .page-header { padding: 4rem 0 3rem 0; }
+    min-height: 100vh;
   }
 </style>

@@ -1,0 +1,98 @@
+---
+/* src/components/common/TopBar.astro */
+---
+
+<div class="top-bar">
+  <div class="container">
+    
+    <div class="info-group">
+      <span class="location-item">
+        <i class="fi fi-rs-marker"></i>
+        Serving the Brazos Valley
+      </span>
+    </div>
+
+    <div class="contact-group">
+      <a href="tel:9795894010" class="phone-link">
+        <i class="fi fi-rs-phone-flip"></i>
+        (979) 589-4010
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .top-bar {
+    background-color: var(--color-primary); /* Brand Navy */
+    color: white;
+    font-size: 0.85rem;
+    padding: 0.5rem 0;
+    position: relative;
+    z-index: 1002;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* --- Icons --- */
+  i {
+    color: var(--color-accent); /* Brand Aqua */
+    margin-right: 0.5rem;
+    position: relative;
+    top: 2px;
+    font-size: 1rem;
+  }
+
+  /* --- Left Side --- */
+  .info-group {
+    display: flex;
+    gap: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    align-items: center;
+  }
+
+  .location-item {
+    display: flex;
+    align-items: center; 
+  }
+
+  /* --- Right Side --- */
+  .contact-group {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .phone-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+  }
+
+  .phone-link:hover {
+    color: var(--color-accent);
+  }
+
+  /* --- Mobile --- */
+  @media (max-width: 768px) {
+    .info-group {
+      display: none;
+    }
+
+    .container {
+      justify-content: center;
+    }
+  }
+</style>

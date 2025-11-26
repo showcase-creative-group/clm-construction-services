@@ -1,5 +1,6 @@
 ---
 import Header from '../components/common/Header.astro';
+import TopBar from '../components/common/TopBar.astro'; /* NEW IMPORT */
 
 interface Props {
 	title: string;
@@ -20,11 +21,13 @@ const { title } = Astro.props;
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		
+		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
 
 		<title>{title}</title>
 	</head>
 	<body>
-		<Header />
+		<TopBar /> <Header />
 		
 		<slot />
 	</body>

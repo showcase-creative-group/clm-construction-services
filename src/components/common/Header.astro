@@ -3,13 +3,15 @@ import { Image } from 'astro:assets';
 import logo from '../../assets/logo.svg';
 
 const pathname = Astro.url.pathname;
+const isHome = pathname === '/';
+
 const isActive = (href: string) => {
   if (href === '/') return pathname === '/';
   return pathname.startsWith(href);
 };
 ---
 
-<header id="site-header" class="site-header">
+<header id="site-header" class:list={["site-header", { "is-home": isHome, "is-transparent": isHome }]}>
   <div class="container">
     <a href="/" class="brand">
       <Image src={logo} alt="CLM Construction Services" class="logo-img" loading="eager" />
@@ -30,46 +32,98 @@ const isActive = (href: string) => {
 </header>
 
 <style>
-  /* --- Base Header Styles --- */
+  /* --- Base Header Styles (Sticky / Scrolled State) --- */
   .site-header {
     position: sticky;
     top: 0;
     z-index: 1000;
     
-    /* Default: Glassmorphism */
+    /* Default: White Background (Normal State) */
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px); 
     -webkit-backdrop-filter: blur(12px);
-    /* Definition: Navy Bottom Border & Soft Shadow */
     border-bottom: 3px solid var(--color-primary);
     box-shadow: 0 4px 20px rgba(27, 58, 105, 0.1);
     
     padding: 0.75rem 0;
-    /* Transitions for seamless open/close state */
-    transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
   }
 
-  /* Seamless Mobile State: Removes separation when menu is open */
-  .site-header.menu-open {
+  /* --- Home Page Layout Logic --- */
+  /* Pulls the Hero section up behind the header */
+  .site-header.is-home {
+    margin-bottom: -6rem; 
+  }
+
+  /* --- Transparent State (Initial Load on Home) --- */
+  /* Using specific selector to override base styles */
+  .site-header.is-home.is-transparent {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Text Links become White in Transparent Mode */
+  .site-header.is-home.is-transparent .nav-link {
+    color: white !important;
+  }
+
+  /* Hover State remains Aqua */
+  .site-header.is-home.is-transparent .nav-link:hover,
+  .site-header.is-home.is-transparent .nav-link.active {
+    color: var(--color-accent) !important;
+  }
+
+  /* Invert Logo to White */
+  .site-header.is-home.is-transparent .logo-img {
+    filter: brightness(0) invert(1);
+  }
+
+  /* Hamburger Lines become White */
+  .site-header.is-home.is-transparent .hamburger-inner,
+  .site-header.is-home.is-transparent .hamburger-inner::before,
+  .site-header.is-home.is-transparent .hamburger-inner::after {
     background-color: white;
+  }
+
+  /* --- Mobile Menu Open State (Always Solid White) --- */
+  .site-header.menu-open {
+    background-color: white !important;
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     border-bottom-color: transparent; 
     box-shadow: none; 
   }
+  
+  /* Reset logo filter */
+  .site-header.menu-open .logo-img {
+    filter: none !important;
+  }
 
+  /* Reset Hamburger to Navy */
+  .site-header.menu-open .hamburger-inner,
+  .site-header.menu-open .hamburger-inner::before,
+  .site-header.menu-open .hamburger-inner::after {
+    background-color: var(--color-primary);
+  }
+
+  /* Active Hamburger ('X') becomes Aqua */
+  .site-header.menu-open .mobile-toggle.active .hamburger-inner::before,
+  .site-header.menu-open .mobile-toggle.active .hamburger-inner::after {
+    background-color: var(--color-accent);
+  }
+
+  /* --- Layout & Standard Styles --- */
   .container {
-    /* UPDATED: Increased max-width to 1400px to push content wider */
     max-width: 1400px;
     margin: 0 auto;
-    /* UPDATED: Reduced padding to 1rem (16px) */
     padding: 0 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  /* --- Logo --- */
   .brand {
     text-decoration: none;
     display: flex;
@@ -83,9 +137,9 @@ const isActive = (href: string) => {
     width: auto;
     object-fit: contain;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    transition: filter 0.3s ease;
   }
 
-  /* --- Navigation --- */
   .nav-menu {
     display: flex;
     gap: 2.5rem;
@@ -119,7 +173,7 @@ const isActive = (href: string) => {
     border-radius: 2px;
   }
 
-  /* --- Mobile Toggle Button --- */
+  /* --- Mobile Toggle --- */
   .mobile-toggle {
     display: none;
     background: none;
@@ -157,24 +211,24 @@ const isActive = (href: string) => {
   }
 
   .hamburger-inner::before { top: -10px; }
-  .hamburger-inner::after { bottom: -10px;
-  }
+  .hamburger-inner::after { bottom: -10px; }
 
-  /* Hamburger Active State */
   .mobile-toggle.active .hamburger-inner {
-    background-color: transparent;
+    background-color: transparent !important;
   }
   .mobile-toggle.active .hamburger-inner::before {
     transform: translateY(10px) rotate(45deg);
-    background-color: var(--color-accent);
   }
   .mobile-toggle.active .hamburger-inner::after {
     transform: translateY(-10px) rotate(-45deg);
-    background-color: var(--color-accent);
   }
 
-  /* --- Mobile Styles (992px) --- */
+  /* --- Mobile Breakpoints --- */
   @media (max-width: 992px) {
+    .site-header.is-home {
+        margin-bottom: -5.5rem;
+    }
+
     .logo-img {
       height: 3.5rem;
     }
@@ -189,15 +243,11 @@ const isActive = (href: string) => {
       left: 0;
       width: 100%;
       flex-direction: column;
-      
-      /* Solid white background matches 'menu-open' header */
       background-color: white; 
-      
       padding: 2rem 0;
       gap: 2rem;
-      border-bottom: 3px solid var(--color-primary);
+      border-bottom: 3px solid #1B3A69;
       box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-      /* Hidden State */
       transform: translateY(-150%);
       opacity: 0;
       transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -205,14 +255,15 @@ const isActive = (href: string) => {
       pointer-events: none;
     }
 
+    .nav-menu .nav-link {
+      color: #1B3A69 !important; 
+      font-size: 1.25rem;
+    }
+
     .nav-menu.active {
       transform: translateY(0);
       opacity: 1;
       pointer-events: all;
-    }
-
-    .nav-link {
-      font-size: 1.25rem;
     }
   }
 </style>
@@ -221,24 +272,60 @@ const isActive = (href: string) => {
   const header = document.getElementById('site-header');
   const toggleBtn = document.getElementById('mobile-toggle');
   const navMenu = document.getElementById('nav-menu');
+
   if (toggleBtn && navMenu && header) {
+    
+    // --- SCROLL LOGIC FOR HOME PAGE ---
+    if (header.classList.contains('is-home')) {
+      const handleScroll = () => {
+        // If at top (with 50px buffer), make Transparent.
+        // Otherwise remove transparent class (it reverts to base sticky white style).
+        if (window.scrollY <= 50) {
+          if (!header.classList.contains('menu-open')) {
+            header.classList.add('is-transparent');
+          }
+        } else {
+          header.classList.remove('is-transparent');
+        }
+      };
+
+      // Run immediately to set initial state
+      handleScroll();
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    // --- MOBILE MENU TOGGLE ---
     toggleBtn.addEventListener('click', () => {
       const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-      
       toggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+      
       toggleBtn.classList.toggle('active');
       navMenu.classList.toggle('active');
-      
-      // Toggle seamless look on header
       header.classList.toggle('menu-open');
+
+      // If opening menu on home, remove transparency so we see white bg
+      if (header.classList.contains('is-home')) {
+        if (!isExpanded) { 
+          // Opening
+          header.classList.remove('is-transparent');
+        } else if (window.scrollY <= 50) { 
+          // Closing & at top -> Restore transparency
+          header.classList.add('is-transparent');
+        }
+      }
     });
-    // Close menu when clicking a link
+
+    // Close menu logic
     navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         toggleBtn.classList.remove('active');
         navMenu.classList.remove('active');
         header.classList.remove('menu-open');
         toggleBtn.setAttribute('aria-expanded', 'false');
+        
+        if (header.classList.contains('is-home') && window.scrollY <= 50) {
+          header.classList.add('is-transparent');
+        }
       });
     });
   }

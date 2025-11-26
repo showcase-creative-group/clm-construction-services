@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import logo from '../../assets/logo.svg';
 
 const pathname = Astro.url.pathname;
-
 const isActive = (href: string) => {
   if (href === '/') return pathname === '/';
   return pathname.startsWith(href);
@@ -41,13 +40,11 @@ const isActive = (href: string) => {
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px); 
     -webkit-backdrop-filter: blur(12px);
-    
     /* Definition: Navy Bottom Border & Soft Shadow */
-    border-bottom: 3px solid var(--color-primary); 
+    border-bottom: 3px solid var(--color-primary);
     box-shadow: 0 4px 20px rgba(27, 58, 105, 0.1);
     
-    padding: 0.75rem 0; 
-    
+    padding: 0.75rem 0;
     /* Transitions for seamless open/close state */
     transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
@@ -62,9 +59,11 @@ const isActive = (href: string) => {
   }
 
   .container {
-    max-width: 1200px;
+    /* UPDATED: Increased max-width to 1400px to push content wider */
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    /* UPDATED: Reduced padding to 1rem (16px) */
+    padding: 0 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -158,7 +157,8 @@ const isActive = (href: string) => {
   }
 
   .hamburger-inner::before { top: -10px; }
-  .hamburger-inner::after { bottom: -10px; }
+  .hamburger-inner::after { bottom: -10px;
+  }
 
   /* Hamburger Active State */
   .mobile-toggle.active .hamburger-inner {
@@ -176,11 +176,11 @@ const isActive = (href: string) => {
   /* --- Mobile Styles (992px) --- */
   @media (max-width: 992px) {
     .logo-img {
-      height: 3.5rem; 
+      height: 3.5rem;
     }
 
     .mobile-toggle {
-      display: block; 
+      display: block;
     }
 
     .nav-menu {
@@ -197,7 +197,6 @@ const isActive = (href: string) => {
       gap: 2rem;
       border-bottom: 3px solid var(--color-primary);
       box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-      
       /* Hidden State */
       transform: translateY(-150%);
       opacity: 0;
@@ -222,7 +221,6 @@ const isActive = (href: string) => {
   const header = document.getElementById('site-header');
   const toggleBtn = document.getElementById('mobile-toggle');
   const navMenu = document.getElementById('nav-menu');
-
   if (toggleBtn && navMenu && header) {
     toggleBtn.addEventListener('click', () => {
       const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
@@ -234,7 +232,6 @@ const isActive = (href: string) => {
       // Toggle seamless look on header
       header.classList.toggle('menu-open');
     });
-
     // Close menu when clicking a link
     navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {

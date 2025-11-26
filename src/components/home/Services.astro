@@ -46,6 +46,7 @@ const services = [
         <div class="block-content">
           <div class="service-header">
              <span class="service-number">{service.id}</span>
+           
              <i class={`fi ${service.icon} service-icon`}></i>
           </div>
 
@@ -73,29 +74,31 @@ const services = [
     position: relative;
     background-color: var(--color-primary); 
     color: white;
-    /* UPDATED: Reduced horizontal padding to give text more room */
-    padding: 3rem 1.5rem; 
+    /* UPDATED: Reduced padding from 3rem to 2rem for compact height */
+    padding: 2rem 1.5rem;
     border-right: 1px solid rgba(255,255,255,0.1);
     border-bottom: 1px solid rgba(255,255,255,0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 500px;
+    /* UPDATED: Reduced min-height from 500px to 360px */
+    min-height: 360px;
     overflow: hidden;
-    text-decoration: none; 
+    text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
 
   .service-block:hover {
-    background-color: #234b85; 
+    background-color: #234b85;
   }
 
   .service-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1.5rem;
+    /* UPDATED: Reduced margin from 1.5rem to 1rem */
+    margin-bottom: 1rem;
     width: 100%;
   }
 
@@ -130,15 +133,16 @@ const services = [
   }
 
   .service-title {
-    /* UPDATED: Lowered minimum size (2rem) and growth rate (3.5vw) to prevent overflow */
-    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    /* UPDATED: Slightly smaller clamp range to fit compact card */
+    font-size: clamp(1.75rem, 3vw, 3rem);
     font-weight: 800;
     text-transform: uppercase;
     line-height: 0.9;
-    margin: 0 0 1.5rem 0;
+    /* UPDATED: Reduced margin from 1.5rem to 1rem */
+    margin: 0 0 1rem 0;
     font-family: 'Barlow', sans-serif;
     /* Safety net for very long words on narrow screens */
-    word-break: break-word; 
+    word-break: break-word;
   }
 
   .service-desc {
@@ -163,17 +167,20 @@ const services = [
   /* Unified 992px Breakpoint */
   @media (max-width: 992px) {
     .services-block-grid {
-      grid-template-columns: 1fr; 
+      grid-template-columns: 1fr;
     }
 
     .service-block {
+        /* Preserving original mobile styles */
         min-height: auto; 
         padding: 3rem 1.5rem;
-        border-right: none; 
+        border-right: none;
         border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    .service-icon { font-size: 2.5rem; }
+    .service-icon { 
+      font-size: 2.5rem;
+    }
   }
 </style>
 
@@ -183,7 +190,6 @@ const services = [
     rootMargin: '0px',
     threshold: 0.1
   };
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -192,7 +198,6 @@ const services = [
       }
     });
   }, observerOptions);
-
   document.querySelectorAll('.animate-fade-up').forEach((el) => {
     observer.observe(el);
   });

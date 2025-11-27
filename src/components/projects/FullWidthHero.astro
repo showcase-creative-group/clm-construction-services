@@ -22,7 +22,7 @@ const { img, alt = "Featured Project" } = Astro.props;
 <style>
   .featured-wrapper {
     width: 100%;
-    min-height: 88vh;
+    min-height: calc(100vh - 7.5rem);
     position: relative;
     overflow: hidden;
     background-color: var(--color-primary); 
@@ -98,7 +98,7 @@ const { img, alt = "Featured Project" } = Astro.props;
   /* Unified 992px Breakpoint */
   @media (max-width: 992px) {
     .featured-wrapper {
-      min-height: 70vh; 
+      min-height: calc(100vh - 7rem); 
     }
     
     .scroll-text {

@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 const projects = [
   {
     img: "https://media.clmconstructionservices.com/home/h_1.webp"
@@ -46,10 +48,16 @@ const projects = [
 
     <div class="slider-container" id="slider-container">
       <div class="slider-track" id="track">
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <div class="slide">
             <div class="image-card">
-              <img src={project.img} alt="Recent Project" loading="lazy" />
+              <Image 
+                src={project.img} 
+                alt={`Recent Project ${index + 1}`}
+                width={800}
+                height={600}
+                class="slide-img"
+              />
             </div>
           </div>
         ))}
@@ -158,14 +166,15 @@ const projects = [
     border-radius: 4px;
   }
 
-  .image-card img {
+  /* UPDATED: Selector targeting the class on the Astro Image component */
+  .slide-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
   }
 
-  .image-card:hover img {
+  .image-card:hover .slide-img {
     transform: scale(1.03);
   }
 

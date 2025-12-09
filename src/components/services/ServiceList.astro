@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 const services = [
   {
     id: "01",
@@ -96,7 +98,13 @@ const services = [
 
           <div class="image-col animate-fade-up delay-100">
             <div class="image-frame">
-              <img src={service.img} alt={service.title} loading="lazy" />
+              <Image 
+                src={service.img} 
+                alt={service.title} 
+                width={600} 
+                height={450} 
+                class="service-list-img"
+              />
             </div>
           </div>
 
@@ -116,7 +124,7 @@ const services = [
   .service-row {
     padding: 6rem 0;
     position: relative;
-    scroll-margin-top: 100px; 
+    scroll-margin-top: 100px;
   }
 
   .service-row:nth-child(even) {
@@ -187,16 +195,16 @@ const services = [
   /* --- DESKTOP ALIGNMENT LOGIC (The "Hug" Effect) --- */
   @media (min-width: 993px) {
     .content-wrapper:not(.reverse) .text-col {
-      align-items: flex-end; 
+      align-items: flex-end;
       text-align: right;     
     }
 
     .content-wrapper:not(.reverse) .service-title {
-      justify-content: flex-end; 
+      justify-content: flex-end;
     }
 
     .content-wrapper:not(.reverse) .feature-list li {
-      flex-direction: row-reverse; 
+      flex-direction: row-reverse;
     }
   }
 
@@ -223,7 +231,7 @@ const services = [
   }
 
   .separator {
-    color: rgba(27, 58, 105, 0.3); 
+    color: rgba(27, 58, 105, 0.3);
     margin: 0 0.25rem;
   }
 
@@ -265,7 +273,7 @@ const services = [
   .check-icon {
     width: 20px;
     height: 20px;
-    color: var(--color-accent); 
+    color: var(--color-accent);
     flex-shrink: 0;
   }
 
@@ -284,7 +292,8 @@ const services = [
     aspect-ratio: 4/3;
   }
 
-  .image-frame img {
+  /* UPDATED: Selector targeting the class on the Astro Image component */
+  .service-list-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -313,13 +322,13 @@ const services = [
   /* --- Responsive: Unified 992px Breakpoint --- */
   @media (max-width: 992px) {
     .spine-wrapper {
-      left: 1.5rem; 
+      left: 1.5rem;
       transform: none;
       align-items: flex-start; 
     }
     
     .spine-dot {
-      margin-left: -9px; 
+      margin-left: -9px;
       top: 1.5rem; 
     }
 
@@ -356,7 +365,6 @@ const services = [
     rootMargin: '0px',
     threshold: 0.1
   };
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -365,7 +373,6 @@ const services = [
       }
     });
   }, observerOptions);
-
   document.querySelectorAll('.animate-fade-up').forEach((el) => {
     observer.observe(el);
   });

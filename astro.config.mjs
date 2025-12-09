@@ -9,4 +9,8 @@ export default defineConfig({
       enabled: true,
     },
   }),
+  image: {
+    // Authorize Astro to optimize images from your R2 domain
+    domains: ["media.clmconstructionservices.com"],
+  },
 });

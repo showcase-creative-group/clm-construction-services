@@ -35,7 +35,7 @@ const services = [
     title: "Utility",
     subtitle: "Utility Infrastructure",
     slug: "utilities",
-    description: "We install all features of utility infastructure for services such as domestic water, sanitary sewer, and drainage.",
+    description: "We install all features of utility infrastructure for services such as domestic water, sanitary sewer, and drainage.",
     features: [
       "Domestic Water Piping Systems",
       "Sanitary Sewer Systems and Lift Stations",
@@ -61,249 +61,282 @@ const services = [
 ];
 ---
 
-<section class="services-list">
-  {services.map((service, index) => (
-    <div id={service.slug} class="service-row">
-      <div class="container">
+<section class="services-wrapper">
+  
+  {/* --- Intro Section --- */}
+  <div class="services-intro">
+    <div class="container">
+      <div class="intro-content animate-fade-up">
+        <h2>Our <span class="highlight">Services</span></h2>
+        <p>
+          Delivering comprehensive site solutions with precision and expertise. 
+          From groundwork to utility infrastructure, we build the foundation for your success.
+        </p>
+        <div class="bar"></div>
+      </div>
+    </div>
+  </div>
+
+  {/* --- Service List --- */}
+  <div class="services-list">
+    {services.map((service, index) => (
+      <div id={service.slug} class={`service-split ${index % 2 !== 0 ? 'reverse light-theme' : 'dark-theme'}`}>
         
-        <div class="spine-wrapper">
-          <div class="spine-line"></div>
-          <div class="spine-dot"></div>
+        {/* Image Side */}
+        <div class="image-side">
+          <Image 
+            src={service.img} 
+            alt={service.title} 
+            width={1200} 
+            height={900} 
+            class="cover-img"
+          />
+          <div class="img-overlay"></div>
         </div>
 
-        <div class={`content-wrapper ${index % 2 === 1 ? 'reverse' : ''}`}>
-          
-          <div class="text-col animate-fade-up">
-            
-            <div class="service-header-block">
-              <h2 class="service-title">
-                <span class="id-number">{service.id}</span> 
-                <span class="separator">—</span> 
-                {service.title}
-              </h2>
-              <span class="subtitle">{service.subtitle}</span>
+        {/* Text Side */}
+        <div class="text-side">
+          <div class="content animate-fade-up">
+            <div class="header-group">
+              <span class="id-number">{service.id}</span>
+              <h2 class="title">{service.title}</h2>
             </div>
-
+            
+            <span class="subtitle">{service.subtitle}</span>
+            <div class="divider"></div>
+            
             <p class="description">{service.description}</p>
             
             <ul class="feature-list">
               {service.features.map(item => (
                 <li>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <i class="fi fi-rs-check-circle check-icon"></i>
                   {item}
                 </li>
               ))}
             </ul>
           </div>
-
-          <div class="image-col animate-fade-up delay-100">
-            <div class="image-frame">
-              <Image 
-                src={service.img} 
-                alt={service.title} 
-                width={600} 
-                height={450} 
-                class="service-list-img"
-              />
-            </div>
-          </div>
-
         </div>
+
       </div>
-    </div>
-  ))}
+    ))}
+  </div>
 </section>
 
 <style>
-  .services-list {
+  .services-wrapper {
+    width: 100%;
     background-color: white;
-    position: relative;
-    overflow: hidden;
   }
 
-  .service-row {
-    padding: 6rem 0;
-    position: relative;
-    scroll-margin-top: 100px;
-  }
-
-  .service-row:nth-child(even) {
-    background-color: rgba(248, 250, 252, 0.5);
+  /* --- Intro Styles --- */
+  .services-intro {
+    padding: 6rem 0 4rem 0;
+    text-align: center;
+    background-color: white;
   }
 
   .container {
-    max-width: 1400px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 1.5rem;
-    position: relative;
   }
 
-  /* --- Spine --- */
-  .spine-wrapper {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    transform: translateX(-50%);
-    z-index: 0;
-    width: 20px;
+  .intro-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 1.5rem;
   }
 
-  .spine-line {
-    position: absolute;
-    top: -6rem; 
-    bottom: -6rem; 
-    width: 2px;
-    background-image: linear-gradient(to bottom, rgba(27, 58, 105, 0.25) 50%, transparent 50%);
-    background-size: 1px 12px;
+  .services-intro h2 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    line-height: 1.1;
+    margin: 0;
   }
 
-  .spine-dot {
-    width: 14px;
-    height: 14px;
-    background-color: white;
-    border: 3px solid var(--color-accent);
-    border-radius: 50%;
-    z-index: 1;
-    position: relative;
+  .highlight {
+    color: var(--color-accent);
   }
 
-  /* --- Layout --- */
-  .content-wrapper {
+  .services-intro p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--color-text-main);
+    margin: 0;
+  }
+
+  .bar {
+    width: 80px;
+    height: 6px;
+    background-color: var(--color-accent);
+    margin-top: 1rem;
+    border-radius: 3px;
+  }
+
+  /* --- Service Split Layout --- */
+  .services-list {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .service-split {
     display: flex;
-    align-items: center;
-    gap: 6rem; 
+    min-height: 600px; 
+    width: 100%;
     position: relative;
-    z-index: 1;
+    scroll-margin-top: 100px; 
   }
 
-  .content-wrapper.reverse {
+  .service-split.reverse {
     flex-direction: row-reverse;
   }
 
-  .text-col {
+  /* --- Image Side --- */
+  .image-side {
     flex: 1;
+    width: 50%;
     position: relative;
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
+    min-height: 500px; 
   }
 
-  /* --- DESKTOP ALIGNMENT LOGIC (The "Hug" Effect) --- */
-  @media (min-width: 993px) {
-    .content-wrapper:not(.reverse) .text-col {
-      align-items: flex-end;
-      text-align: right;     
-    }
-
-    .content-wrapper:not(.reverse) .service-title {
-      justify-content: flex-end;
-    }
-
-    .content-wrapper:not(.reverse) .feature-list li {
-      flex-direction: row-reverse;
-    }
+  .cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.7s ease;
   }
 
-  /* --- Typography --- */
-  .service-header-block {
-    margin-bottom: 1.5rem;
+  .img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(27, 58, 105, 0.2), transparent);
+    pointer-events: none;
   }
 
-  .service-title {
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 800;
-    color: var(--color-primary); 
-    text-transform: uppercase;
-    line-height: 1;
-    margin: 0 0 0.5rem 0; 
+  /* --- Text Side Base --- */
+  .text-side {
+    flex: 1;
+    width: 50%;
     display: flex;
     align-items: center;
-    flex-wrap: wrap; 
-    gap: 0.5rem;
+    justify-content: center;
+    padding: 5rem 4rem; 
+    position: relative;
+  }
+
+  .content {
+    max-width: 650px;
+    width: 100%;
+  }
+
+  /* --- DARK THEME (Odd Items: Civil, Utility) --- */
+  .service-split.dark-theme .text-side {
+    background-color: var(--color-primary); 
+    background-image: linear-gradient(135deg, var(--color-primary) 0%, #0F203C 100%);
+    color: white;
+  }
+
+  .service-split.dark-theme .id-number { color: rgba(255,255,255,0.2); }
+  .service-split.dark-theme .title { color: white; }
+  .service-split.dark-theme .description { color: #cbd5e1; }
+  .service-split.dark-theme .feature-list li { 
+    color: #e2e8f0; 
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* --- LIGHT THEME (Even Items: HDPE, Earthwork) --- */
+  .service-split.light-theme .text-side {
+    background-color: #f8fafc; /* Very light gray/white */
+    color: var(--color-primary);
+  }
+
+  .service-split.light-theme .id-number { color: rgba(27, 58, 105, 0.15); }
+  .service-split.light-theme .title { color: var(--color-primary); }
+  .service-split.light-theme .description { color: var(--color-text-main); }
+  .service-split.light-theme .feature-list li { 
+    color: var(--color-primary); 
+    border-bottom: 1px solid rgba(27, 58, 105, 0.1);
+  }
+
+  /* --- Common Text Styles --- */
+  .header-group {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
   }
 
   .id-number {
-    color: var(--color-accent); 
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: 'Barlow', sans-serif;
   }
 
-  .separator {
-    color: rgba(27, 58, 105, 0.3);
-    margin: 0 0.25rem;
+  .title {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0;
   }
 
   .subtitle {
     display: block;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--color-accent); 
-    letter-spacing: 2px;
+    font-size: 1.1rem;
+    color: var(--color-accent);
     text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  .divider {
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-accent);
+    margin-bottom: 2rem;
+    border-radius: 2px;
   }
 
   .description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--color-text-main); 
-    margin: 0 0 1.5rem 0;
-    max-width: 500px;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
   }
 
-  /* --- Feature List --- */
   .feature-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem 2rem;
   }
 
   .feature-list li {
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-primary); 
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.4;
+    padding-bottom: 1rem;
   }
 
   .check-icon {
-    width: 20px;
-    height: 20px;
     color: var(--color-accent);
-    flex-shrink: 0;
+    font-size: 1.1rem;
+    margin-top: 2px;
   }
 
-  /* --- Image --- */
-  .image-col {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-
-  .image-frame {
-    position: relative;
-    width: 100%;
-    /* UPDATED: Reduced from 600px to 520px */
-    max-width: 520px;
-    aspect-ratio: 4/3;
-  }
-
-  /* UPDATED: Selector targeting the class on the Astro Image component */
-  .service-list-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 4px;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
-  }
-
-  /* --- Animation --- */
+  /* --- Animations --- */
   .animate-fade-up {
     opacity: 0;
     transform: translateY(30px);
@@ -315,46 +348,42 @@ const services = [
     transform: translateY(0);
   }
 
-  .delay-100 {
-    transition-delay: 0.1s;
+  /* --- Hover Effects --- */
+  .service-split:hover .cover-img {
+    transform: scale(1.03);
   }
 
-  /* --- Responsive: Unified 992px Breakpoint --- */
+  /* --- Responsive Breakpoints --- */
   @media (max-width: 992px) {
-    .spine-wrapper {
-      left: 1.5rem;
-      transform: none;
-      align-items: flex-start; 
+    .services-intro {
+      padding: 4rem 0 2rem 0;
+    }
+
+    .service-split,
+    .service-split.reverse {
+      flex-direction: column;
+      min-height: auto;
+    }
+
+    .image-side, .text-side {
+      width: 100%;
+      flex: none;
+    }
+
+    .image-side {
+      height: 350px;
+    }
+
+    .text-side {
+      padding: 3rem 1.5rem;
+    }
+
+    .title {
+      font-size: 2.5rem;
     }
     
-    .spine-dot {
-      margin-left: -9px;
-      top: 1.5rem; 
-    }
-
-    .spine-line {
-      left: 0;
-    }
-
-    .content-wrapper, 
-    .content-wrapper.reverse {
-      flex-direction: column;
-      gap: 3rem;
-      text-align: left;
-      align-items: stretch;
-      padding-left: 3rem; 
-    }
-
-    .content-wrapper:not(.reverse) .feature-list li {
-      flex-direction: row !important;
-    }
-
-    .content-wrapper:not(.reverse) .service-title {
-      justify-content: flex-start !important;
-    }
-
-    .image-frame { 
-      max-width: 100%;
+    .feature-list {
+        grid-template-columns: 1fr;
     }
   }
 </style>
@@ -363,8 +392,9 @@ const services = [
   const observerOptions = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.1
+    threshold: 0.15
   };
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -373,6 +403,7 @@ const services = [
       }
     });
   }, observerOptions);
+
   document.querySelectorAll('.animate-fade-up').forEach((el) => {
     observer.observe(el);
   });

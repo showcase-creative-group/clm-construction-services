@@ -31,13 +31,12 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
       height={900} 
       class="cover-img"
     />
+    {/* Overlay restored at 5% opacity */}
     <div class="img-overlay"></div>
   </div>
 
   {/* --- TEXT SIDE --- */}
-  {/* The lines are now drawn automatically by the CSS of this div */}
   <div class="text-side">
-    
     <div class="content animate-fade-up">
       <div class="header-group">
         <span class="id-number">{id}</span>
@@ -104,10 +103,11 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
     transform: scale(1.03);
   }
 
+  /* OVERLAY: 5% Navy Opacity */
   .img-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(27, 58, 105, 0.05);
+    background-color: rgba(27, 58, 105, 0.05); /* 0.05 = 5% */
     pointer-events: none;
     z-index: 2;
   }
@@ -126,25 +126,21 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
     isolation: isolate; 
   }
 
-  /* PSEUDO-ELEMENTS: 
-     This replaces the <div class="decoration-container"> 
-  */
-
-  /* Shared styles for both lines */
+  /* PSEUDO-ELEMENTS: Dashed Lines */
   .text-side::before,
   .text-side::after {
-    content: ""; /* Required to make them appear */
+    content: ""; 
     position: absolute;
-    opacity: 0.2; /* 20% visible */
+    opacity: 0.2; /* Line opacity remains 20% */
     pointer-events: none;
-    z-index: 1; /* Behind the content (content is z-index 2) */
+    z-index: 1; 
   }
 
   /* 1. Vertical Line (::before) */
   .text-side::before {
     top: 0;
     bottom: 0;
-    width: 0; /* No width, just border */
+    width: 0; 
     border-left: 3px dashed var(--color-accent);
   }
 
@@ -152,19 +148,14 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
   .text-side::after {
     top: 25%;
     width: 150px;
-    height: 0; /* No height, just border */
+    height: 0; 
     border-top: 3px dashed var(--color-accent);
   }
 
   /* --- Positioning Logic --- */
-
-  /* Normal Layout (Img Left, Text Right) */
-  /* Vert line on Right, Horiz line on Left */
   .service-split:not(.reverse) .text-side::before { right: 4rem; }
   .service-split:not(.reverse) .text-side::after  { left: 0; }
 
-  /* Reverse Layout (Text Left, Img Right) */
-  /* Vert line on Left, Horiz line on Right */
   .service-split.reverse .text-side::before { left: 4rem; }
   .service-split.reverse .text-side::after  { right: 0; }
 
@@ -176,7 +167,7 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
     max-width: 650px;
     width: 100%;
     position: relative;
-    z-index: 2; /* Sits on top of the pseudo-lines */
+    z-index: 2; 
   }
 
   .header-group {
@@ -257,7 +248,8 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
   /* Dark Theme */
   .service-split.dark-theme .text-side {
     background-color: var(--color-primary); 
-    background-image: linear-gradient(135deg, var(--color-primary) 0%, #0F203C 100%);
+    /* Gradient removed. Now a flat solid color. */
+    background-image: none;
     color: white;
   }
   .service-split.dark-theme .id-number { color: rgba(255,255,255,0.2); }
@@ -322,7 +314,6 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
       grid-template-columns: 1fr;
     }
 
-    /* Hide pseudo-elements (the lines) on mobile */
     .text-side::before,
     .text-side::after {
       display: none;

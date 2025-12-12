@@ -10,16 +10,14 @@ interface Props {
   features: string[];
   img: string;
   index: number;
-  totalServices: number;
 }
 
-const { id, title, subtitle, slug, description, features, img, index, totalServices } = Astro.props;
+const { id, title, subtitle, slug, description, features, img, index } = Astro.props;
 
 /* Layout Logic */
 const isOdd = index % 2 !== 0;
 const layoutClass = isOdd ? 'reverse' : '';
 const themeClass = isOdd ? 'light-theme' : 'dark-theme';
-const isLast = index === totalServices - 1;
 ---
 
 <div id={slug} class={`service-split ${layoutClass} ${themeClass}`}>
@@ -37,15 +35,9 @@ const isLast = index === totalServices - 1;
   </div>
 
   {/* --- TEXT SIDE --- */}
+  {/* The lines are now drawn automatically by the CSS of this div */}
   <div class="text-side">
     
-    {/* DECORATIVE SNAKE LINES (Z-Index: 1) */}
-    <div class="snake-container">
-      <div class="snake-horiz"></div>
-      {!isLast && <div class="snake-vert"></div>}
-    </div>
-
-    {/* CONTENT (Z-Index: 2 - Sits on top of lines) */}
     <div class="content animate-fade-up">
       <div class="header-group">
         <span class="id-number">{id}</span>
@@ -71,7 +63,9 @@ const isLast = index === totalServices - 1;
 </div>
 
 <style>
-  /* --- Layout --- */
+  /* ----------------------- */
+  /* Layout                  */
+  /* ----------------------- */
   .service-split {
     display: flex;
     min-height: 600px; 
@@ -85,12 +79,15 @@ const isLast = index === totalServices - 1;
     flex-direction: row-reverse;
   }
 
-  /* --- Image Side --- */
+  /* ----------------------- */
+  /* Image Side              */
+  /* ----------------------- */
   .image-side {
     flex: 1;
     width: 50%;
     position: relative;
-    min-height: 500px; 
+    min-height: 500px;
+    overflow: hidden; 
   }
 
   .cover-img {
@@ -103,16 +100,21 @@ const isLast = index === totalServices - 1;
     z-index: 1;
   }
 
+  .service-split:hover .cover-img {
+    transform: scale(1.03);
+  }
+
   .img-overlay {
     position: absolute;
     inset: 0;
-    /* Subtle Navy overlay for consistency */
-    background: linear-gradient(to right, rgba(27, 58, 105, 0.25), transparent);
+    background-color: rgba(27, 58, 105, 0.2);
     pointer-events: none;
     z-index: 2;
   }
 
-  /* --- Text Side --- */
+  /* ----------------------- */
+  /* Text Side & Decorations */
+  /* ----------------------- */
   .text-side {
     flex: 1;
     width: 50%;
@@ -121,101 +123,62 @@ const isLast = index === totalServices - 1;
     justify-content: center;
     padding: 5rem 4rem; 
     position: relative;
-    /* Establishes a stacking context for children */
     isolation: isolate; 
   }
 
-  /* --- Z-INDEX LAYERING --- */
-  
-  /* Layer 1: Snake Lines (Behind Text) */
-  .snake-container {
+  /* PSEUDO-ELEMENTS: 
+     This replaces the <div class="decoration-container"> 
+  */
+
+  /* Shared styles for both lines */
+  .text-side::before,
+  .text-side::after {
+    content: ""; /* Required to make them appear */
     position: absolute;
-    inset: 0;
+    opacity: 0.2; /* 20% visible */
     pointer-events: none;
-    z-index: 1; 
-    overflow: hidden;
+    z-index: 1; /* Behind the content (content is z-index 2) */
   }
 
-  /* Layer 2: Text Content (On Top) */
+  /* 1. Vertical Line (::before) */
+  .text-side::before {
+    top: 0;
+    bottom: 0;
+    width: 0; /* No width, just border */
+    border-left: 3px dashed var(--color-accent);
+  }
+
+  /* 2. Horizontal Line (::after) */
+  .text-side::after {
+    top: 25%;
+    width: 150px;
+    height: 0; /* No height, just border */
+    border-top: 3px dashed var(--color-accent);
+  }
+
+  /* --- Positioning Logic --- */
+
+  /* Normal Layout (Img Left, Text Right) */
+  /* Vert line on Right, Horiz line on Left */
+  .service-split:not(.reverse) .text-side::before { right: 4rem; }
+  .service-split:not(.reverse) .text-side::after  { left: 0; }
+
+  /* Reverse Layout (Text Left, Img Right) */
+  /* Vert line on Left, Horiz line on Right */
+  .service-split.reverse .text-side::before { left: 4rem; }
+  .service-split.reverse .text-side::after  { right: 0; }
+
+
+  /* ----------------------- */
+  /* Content Styling         */
+  /* ----------------------- */
   .content {
     max-width: 650px;
     width: 100%;
     position: relative;
-    z-index: 2; 
+    z-index: 2; /* Sits on top of the pseudo-lines */
   }
 
-  /* --- SNAKE LINE STYLES --- */
-
-  .snake-horiz {
-    position: absolute;
-    top: 25%; /* Aligns roughly with the Title area */
-    height: 0;
-    width: 200px; /* Length of the dash into the text */
-    border-top: 3px dashed var(--color-accent); /* Aqua */
-    opacity: 0.3;
-  }
-
-  .snake-vert {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    border-left: 3px dashed var(--color-accent); /* Aqua */
-    opacity: 0.3;
-  }
-
-  /* --- SNAKE POSITIONING LOGIC --- */
-
-  /* 1. Normal Layout (Image Left | Text Right) */
-  /* Line comes from Left (Image) and goes Right */
-  .service-split:not(.reverse) .snake-horiz {
-    left: 0; 
-  }
-  /* Vertical line runs down the Right side */
-  .service-split:not(.reverse) .snake-vert {
-    right: 4rem; 
-  }
-
-  /* 2. Reverse Layout (Text Left | Image Right) */
-  /* Line comes from Right (Image) and goes Left */
-  .service-split.reverse .snake-horiz {
-    right: 0; 
-  }
-  /* Vertical line runs down the Left side */
-  .service-split.reverse .snake-vert {
-    left: 4rem; 
-  }
-
-
-  /* --- Themes --- */
-  /* Dark Theme */
-  .service-split.dark-theme .text-side {
-    background-color: var(--color-primary); 
-    background-image: linear-gradient(135deg, var(--color-primary) 0%, #0F203C 100%);
-    color: white;
-  }
-  .service-split.dark-theme .id-number { color: rgba(255,255,255,0.2); }
-  .service-split.dark-theme .title { color: white; }
-  .service-split.dark-theme .description { color: #cbd5e1; }
-  .service-split.dark-theme .feature-list li { 
-    color: #e2e8f0; 
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-
-  /* Light Theme */
-  .service-split.light-theme .text-side {
-    background-color: #f8fafc; 
-    color: var(--color-primary);
-  }
-  .service-split.light-theme .id-number { color: rgba(27, 58, 105, 0.15); }
-  .service-split.light-theme .title { color: var(--color-primary); }
-  .service-split.light-theme .description { color: var(--color-text-main); }
-  .service-split.light-theme .feature-list li { 
-    color: var(--color-primary); 
-    border-bottom: 1px solid rgba(27, 58, 105, 0.1);
-  }
-
-  /* --- Text Styles --- */
   .header-group {
     display: flex;
     align-items: baseline;
@@ -287,7 +250,40 @@ const isLast = index === totalServices - 1;
     margin-top: 2px;
   }
 
-  /* --- Animation --- */
+  /* ----------------------- */
+  /* Themes                  */
+  /* ----------------------- */
+  
+  /* Dark Theme */
+  .service-split.dark-theme .text-side {
+    background-color: var(--color-primary); 
+    background-image: linear-gradient(135deg, var(--color-primary) 0%, #0F203C 100%);
+    color: white;
+  }
+  .service-split.dark-theme .id-number { color: rgba(255,255,255,0.2); }
+  .service-split.dark-theme .title { color: white; }
+  .service-split.dark-theme .description { color: #cbd5e1; }
+  .service-split.dark-theme .feature-list li { 
+    color: #e2e8f0; 
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* Light Theme */
+  .service-split.light-theme .text-side {
+    background-color: #f8fafc; 
+    color: var(--color-primary);
+  }
+  .service-split.light-theme .id-number { color: rgba(27, 58, 105, 0.15); }
+  .service-split.light-theme .title { color: var(--color-primary); }
+  .service-split.light-theme .description { color: var(--color-text-main); }
+  .service-split.light-theme .feature-list li { 
+    color: var(--color-primary); 
+    border-bottom: 1px solid rgba(27, 58, 105, 0.1);
+  }
+
+  /* ----------------------- */
+  /* Animations & Responsive */
+  /* ----------------------- */
   .animate-fade-up {
     opacity: 0;
     transform: translateY(30px);
@@ -298,12 +294,6 @@ const isLast = index === totalServices - 1;
     transform: translateY(0);
   }
 
-  /* --- Hover --- */
-  .service-split:hover .cover-img {
-    transform: scale(1.03);
-  }
-
-  /* --- Responsive --- */
   @media (max-width: 992px) {
     .service-split,
     .service-split.reverse {
@@ -329,12 +319,13 @@ const isLast = index === totalServices - 1;
     }
     
     .feature-list {
-        grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
     }
 
-    /* Hide snakes on mobile as flow breaks */
-    .snake-container {
-        display: none;
+    /* Hide pseudo-elements (the lines) on mobile */
+    .text-side::before,
+    .text-side::after {
+      display: none;
     }
   }
 </style>

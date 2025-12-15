@@ -1,24 +1,24 @@
 ---
-import { Image } from 'astro:assets';
+/* src/components/home/RecentWork.astro */
 
 const projects = [
   {
-    img: "https://media.clmconstructionservices.com/home/h_1.webp"
+    img: "/media/home/h_1.webp"
   },
   {
-    img: "https://media.clmconstructionservices.com/home/h_2.webp"
+    img: "/media/home/h_2.webp"
   },
   {
-    img: "https://media.clmconstructionservices.com/home/h_3.webp"
+    img: "/media/home/h_3.webp"
   },
   {
-    img: "https://media.clmconstructionservices.com/home/h_4.webp"
+    img: "/media/home/h_4.webp"
   },
   {
-    img: "https://media.clmconstructionservices.com/home/h_5.webp"
+    img: "/media/home/h_5.webp"
   },
   {
-    img: "https://media.clmconstructionservices.com/home/h_6.webp"
+    img: "/media/home/h_6.webp"
   }
 ];
 ---
@@ -51,12 +51,13 @@ const projects = [
         {projects.map((project, index) => (
           <div class="slide">
             <div class="image-card">
-              <Image 
+              <img 
                 src={project.img} 
                 alt={`Recent Project ${index + 1}`}
-                width={800}
-                height={600}
+                width="800"
+                height="600"
                 class="slide-img"
+                loading="lazy"
               />
             </div>
           </div>
@@ -166,7 +167,6 @@ const projects = [
     border-radius: 4px;
   }
 
-  /* UPDATED: Selector targeting the class on the Astro Image component */
   .slide-img {
     width: 100%;
     height: 100%;

@@ -13,7 +13,6 @@ interface Props {
 }
 
 const { id, title, subtitle, slug, description, features, img, index } = Astro.props;
-
 /* Layout Logic */
 const isOdd = index % 2 !== 0;
 const layoutClass = isOdd ? 'reverse' : '';
@@ -52,7 +51,8 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
         {features.map(item => (
           <li>
             <i class="fi fi-rs-check-circle check-icon"></i>
-            {item}
+            {/* Wrapped in span to ensure text flexes correctly next to icon */}
+            <span class="feature-text">{item}</span>
           </li>
         ))}
       </ul>
@@ -175,6 +175,8 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
     align-items: baseline;
     gap: 1rem;
     margin-bottom: 0.25rem;
+    /* FIX: Allow wrapping on small screens so ID doesn't push Title off */
+    flex-wrap: wrap;
   }
 
   .id-number {
@@ -184,11 +186,14 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
   }
 
   .title {
-    font-size: clamp(2.5rem, 4vw, 4rem);
+    /* FIX: Fluid typography. Min 1.75rem (~28px) for mobile, Max 4rem for desktop */
+    font-size: clamp(1.75rem, 5vw, 4rem);
     font-weight: 800;
     text-transform: uppercase;
     line-height: 1;
     margin: 0;
+    /* FIX: Ensure long words break if necessary */
+    word-break: break-word;
   }
 
   .subtitle {
@@ -234,11 +239,18 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
     line-height: 1.4;
     padding-bottom: 1rem;
   }
+  
+  /* FIX: Ensure feature text takes available width */
+  .feature-text {
+    flex: 1;
+  }
 
   .check-icon {
     color: var(--color-accent);
     font-size: 1.1rem;
     margin-top: 2px;
+    /* FIX: Prevent icon from shrinking */
+    flex-shrink: 0;
   }
 
   /* ----------------------- */
@@ -306,9 +318,7 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
       padding: 3rem 1.5rem;
     }
 
-    .title {
-      font-size: 2.5rem;
-    }
+    /* FIX: Removed the hardcoded font-size override here so clamp() works */
     
     .feature-list {
       grid-template-columns: 1fr;

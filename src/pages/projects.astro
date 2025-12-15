@@ -6,48 +6,49 @@ import Footer from '../components/common/Footer.astro';
 
 /* Project-Specific Components */
 import FullWidthHero from '../components/projects/FullWidthHero.astro';
-import ProjectIntro from '../components/projects/ProjectIntro.astro'; /* NEW IMPORT */
+import ProjectIntro from '../components/projects/ProjectIntro.astro';
 import ProjectGrid from '../components/projects/ProjectGrid.astro';
 
 /* Data: Featured Project Image */
-const featuredProject = "https://media.clmconstructionservices.com/projects/p_0_0.webp";
+const featuredProject = "/media/projects/p_0_0.webp";
 
 /* Data: Grid Images */
 const projects = [
-  "https://media.clmconstructionservices.com/projects/p_1_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_2_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_2_2.webp",
-  "https://media.clmconstructionservices.com/projects/p_2_3.webp",
-  "https://media.clmconstructionservices.com/projects/p_2_4.webp",
-  "https://media.clmconstructionservices.com/projects/p_3_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_4_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_4_2.webp",
-  "https://media.clmconstructionservices.com/projects/p_4_3.webp",
-  "https://media.clmconstructionservices.com/projects/p_4_4.webp",
-  "https://media.clmconstructionservices.com/projects/p_5_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_5_2.webp",
-  "https://media.clmconstructionservices.com/projects/p_5_3.webp",
-  "https://media.clmconstructionservices.com/projects/p_5_4.webp",
-  "https://media.clmconstructionservices.com/projects/p_5_5.webp",
-  "https://media.clmconstructionservices.com/projects/p_6_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_6_2.webp",
-  "https://media.clmconstructionservices.com/projects/p_7_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_7_2.webp",
-  "https://media.clmconstructionservices.com/projects/p_7_3.webp",
-  "https://media.clmconstructionservices.com/projects/p_8_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_8_2.webp",
-  "https://media.clmconstructionservices.com/projects/p_9_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_9_2.webp",
-  "https://media.clmconstructionservices.com/projects/p_10_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_11_1.webp",
-  "https://media.clmconstructionservices.com/projects/p_12_1.webp"
+  "/media/projects/p_1_1.webp",
+  "/media/projects/p_2_1.webp",
+  "/media/projects/p_2_2.webp",
+  "/media/projects/p_2_3.webp",
+  "/media/projects/p_2_4.webp",
+  "/media/projects/p_3_1.webp",
+  "/media/projects/p_4_1.webp",
+  "/media/projects/p_4_2.webp",
+  "/media/projects/p_4_3.webp",
+  "/media/projects/p_4_4.webp",
+  "/media/projects/p_5_1.webp",
+  "/media/projects/p_5_2.webp",
+  "/media/projects/p_5_3.webp",
+  "/media/projects/p_5_4.webp",
+  "/media/projects/p_5_5.webp",
+  "/media/projects/p_6_1.webp",
+  "/media/projects/p_6_2.webp",
+  "/media/projects/p_7_1.webp",
+  "/media/projects/p_7_2.webp",
+  "/media/projects/p_7_3.webp",
+  "/media/projects/p_8_1.webp",
+  "/media/projects/p_8_2.webp",
+  "/media/projects/p_9_1.webp",
+  "/media/projects/p_9_2.webp",
+  "/media/projects/p_10_1.webp",
+  "/media/projects/p_11_1.webp",
+  "/media/projects/p_12_1.webp"
 ];
 ---
 
 <Layout title="Projects | CLM Construction Services">
   <main>
     <FullWidthHero img={featuredProject} />
-    <ProjectIntro /> <ProjectGrid images={projects} />
+    <ProjectIntro /> 
+    <ProjectGrid images={projects} />
   </main>
   <Footer />
 </Layout>

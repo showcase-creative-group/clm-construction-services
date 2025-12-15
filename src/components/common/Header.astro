@@ -5,6 +5,12 @@ import logo from '../../assets/logo.svg';
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/';
 
+const navItems = [
+  { href: '/', label: 'HOME' },
+  { href: '/projects', label: 'PROJECTS' },
+  { href: '/services', label: 'SERVICES' },
+];
+
 const isActive = (href: string) => {
   if (href === '/') return pathname === '/';
   return pathname.startsWith(href);
@@ -24,21 +30,25 @@ const isActive = (href: string) => {
     </button>
 
     <nav id="nav-menu" class="nav-menu">
-      <a href="/" class:list={["nav-link", { active: isActive('/') }]}>HOME</a>
-      <a href="/projects" class:list={["nav-link", { active: isActive('/projects') }]}>PROJECTS</a>
-      <a href="/services" class:list={["nav-link", { active: isActive('/services') }]}>SERVICES</a>
+      {navItems.map(item => (
+        <a 
+          href={item.href} 
+          class:list={["nav-link", { active: isActive(item.href) }]}
+        >
+          {item.label}
+        </a>
+      ))}
     </nav>
   </div>
 </header>
 
 <style>
-  /* --- Base Header Styles (Sticky / Scrolled State) --- */
+  /* --- Base Header Styles --- */
   .site-header {
     position: sticky;
     top: 0;
     z-index: 1000;
     
-    /* Default: White Background (Normal State) */
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px); 
     -webkit-backdrop-filter: blur(12px);
@@ -49,13 +59,11 @@ const isActive = (href: string) => {
   }
 
   /* --- Home Page Layout Logic --- */
-  /* Pulls the Hero section up behind the header */
   .site-header.is-home {
-    margin-bottom: -6rem; 
+    margin-bottom: -6rem;
   }
 
-  /* --- Transparent State (Initial Load on Home) --- */
-  /* Using specific selector to override base styles */
+  /* --- Transparent State --- */
   .site-header.is-home.is-transparent {
     background-color: transparent !important;
     backdrop-filter: none !important;
@@ -64,30 +72,26 @@ const isActive = (href: string) => {
     box-shadow: none !important;
   }
 
-  /* Text Links become White in Transparent Mode */
   .site-header.is-home.is-transparent .nav-link {
     color: white !important;
   }
 
-  /* Hover State remains Aqua */
   .site-header.is-home.is-transparent .nav-link:hover,
   .site-header.is-home.is-transparent .nav-link.active {
     color: var(--color-accent) !important;
   }
 
-  /* Invert Logo to White */
   .site-header.is-home.is-transparent .logo-img {
     filter: brightness(0) invert(1);
   }
 
-  /* Hamburger Lines become White */
   .site-header.is-home.is-transparent .hamburger-inner,
   .site-header.is-home.is-transparent .hamburger-inner::before,
   .site-header.is-home.is-transparent .hamburger-inner::after {
     background-color: white;
   }
 
-  /* --- Mobile Menu Open State (Always Solid White) --- */
+  /* --- Mobile Menu Open State --- */
   .site-header.menu-open {
     background-color: white !important;
     backdrop-filter: none;
@@ -95,19 +99,16 @@ const isActive = (href: string) => {
     box-shadow: none; 
   }
   
-  /* Reset logo filter */
   .site-header.menu-open .logo-img {
     filter: none !important;
   }
 
-  /* Reset Hamburger to Navy */
   .site-header.menu-open .hamburger-inner,
   .site-header.menu-open .hamburger-inner::before,
   .site-header.menu-open .hamburger-inner::after {
     background-color: var(--color-primary);
   }
 
-  /* Active Hamburger ('X') becomes Aqua */
   .site-header.menu-open .mobile-toggle.active .hamburger-inner::before,
   .site-header.menu-open .mobile-toggle.active .hamburger-inner::after {
     background-color: var(--color-accent);
@@ -128,7 +129,7 @@ const isActive = (href: string) => {
     display: flex;
     align-items: center;
     max-width: 300px;
-    z-index: 1001; 
+    z-index: 1001;
   }
 
   .logo-img {
@@ -158,7 +159,7 @@ const isActive = (href: string) => {
 
   .nav-link:hover,
   .nav-link.active {
-    color: var(--color-accent); 
+    color: var(--color-accent);
   }
 
   .nav-link.active::after {
@@ -253,7 +254,7 @@ const isActive = (href: string) => {
     }
 
     .nav-menu .nav-link {
-      color: #1B3A69 !important; 
+      color: var(--color-primary) !important; 
       font-size: 1.25rem;
     }
 
@@ -272,11 +273,9 @@ const isActive = (href: string) => {
 
   if (toggleBtn && navMenu && header) {
     
-    // --- SCROLL LOGIC FOR HOME PAGE ---
+    // --- Scroll Logic for Home Page ---
     if (header.classList.contains('is-home')) {
       const handleScroll = () => {
-        // If at top (with 50px buffer), make Transparent.
-        // Otherwise remove transparent class (it reverts to base sticky white style).
         if (window.scrollY <= 50) {
           if (!header.classList.contains('menu-open')) {
             header.classList.add('is-transparent');
@@ -286,12 +285,11 @@ const isActive = (href: string) => {
         }
       };
 
-      // Run immediately to set initial state
       handleScroll();
       window.addEventListener('scroll', handleScroll, { passive: true });
     }
 
-    // --- MOBILE MENU TOGGLE ---
+    // --- Mobile Menu Toggle ---
     toggleBtn.addEventListener('click', () => {
       const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
       toggleBtn.setAttribute('aria-expanded', String(!isExpanded));
@@ -300,19 +298,16 @@ const isActive = (href: string) => {
       navMenu.classList.toggle('active');
       header.classList.toggle('menu-open');
 
-      // If opening menu on home, remove transparency so we see white bg
       if (header.classList.contains('is-home')) {
         if (!isExpanded) { 
-          // Opening
           header.classList.remove('is-transparent');
         } else if (window.scrollY <= 50) { 
-          // Closing & at top -> Restore transparency
           header.classList.add('is-transparent');
         }
       }
     });
 
-    // Close menu logic
+    // --- Close Menu on Link Click ---
     navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         toggleBtn.classList.remove('active');

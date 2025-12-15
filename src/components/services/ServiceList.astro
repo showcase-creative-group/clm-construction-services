@@ -1,4 +1,5 @@
 ---
+/* src/components/services/ServiceList.astro */
 import ServiceCard from './ServiceCard.astro';
 
 const services = [
@@ -61,6 +62,19 @@ const services = [
 ];
 ---
 
+<div class="nav-wrapper">
+  <div class="container">
+    <nav class="nav-grid">
+      {services.map((service) => (
+        <a href={`#${service.slug}`} class="nav-card">
+          <span class="nav-number">{service.id}</span>
+          <span class="nav-title">{service.title}</span>
+        </a>
+      ))}
+    </nav>
+  </div>
+</div>
+
 <section class="services-wrapper">
   <div class="services-list">
     {services.map((service, index) => (
@@ -74,6 +88,89 @@ const services = [
 </section>
 
 <style>
+  /* --- Navigation Wrapper --- */
+  .nav-wrapper {
+    background-color: white;
+    /* Minimal padding for a button bar feel */
+    padding: 1.5rem 0; 
+    border-bottom: 1px solid rgba(27, 58, 105, 0.05);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* --- Navigation Grid --- */
+  .nav-grid {
+    display: grid;
+    /* Desktop: 4 Columns */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  /* --- Nav Button Design --- */
+  .nav-card {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center; /* Center content perfectly */
+    gap: 0.75rem;
+    
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    
+    /* Button-like Padding */
+    padding: 0.5rem 1rem; 
+    
+    text-decoration: none;
+    border-radius: 4px; /* Matches Footer Chip Shape */
+    transition: all 0.2s ease;
+    
+    /* Standard Button Height */
+    min-height: 48px; 
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-card:hover {
+    background-color: var(--color-primary); /* Navy */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(27, 58, 105, 0.15);
+    border-color: var(--color-primary);
+  }
+
+  /* --- Internal Elements --- */
+  .nav-number {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #94a3b8;
+    transition: color 0.3s ease;
+    line-height: 1;
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-family: 'Barlow', sans-serif;
+    transition: color 0.3s ease;
+    z-index: 1;
+    line-height: 1;
+  }
+
+  /* --- Hover States --- */
+  .nav-card:hover .nav-number {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .nav-card:hover .nav-title {
+    color: white;
+  }
+
+  /* --- Existing Styles --- */
   .services-wrapper {
     width: 100%;
     background-color: white;
@@ -82,6 +179,33 @@ const services = [
   .services-list {
     width: 100%;
     overflow: hidden;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 992px) {
+    .nav-wrapper {
+      padding: 1.25rem 0;
+    }
+
+    .nav-grid {
+      /* Mobile: 2x2 Grid */
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .nav-card {
+      padding: 0.5rem 0.75rem;
+      min-height: 44px;
+      gap: 0.5rem;
+    }
+
+    .nav-title {
+      font-size: 0.95rem;
+    }
+    
+    .nav-number {
+      font-size: 0.75rem;
+    }
   }
 </style>
 

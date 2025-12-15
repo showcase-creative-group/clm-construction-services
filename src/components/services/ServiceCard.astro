@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-
 interface Props {
   id: string;
   title: string;
@@ -14,7 +12,6 @@ interface Props {
 
 const { id, title, subtitle, slug, description, features, img, index } = Astro.props;
 
-/* Layout Logic */
 const isOdd = index % 2 !== 0;
 const layoutClass = isOdd ? 'reverse' : '';
 const themeClass = isOdd ? 'light-theme' : 'dark-theme';
@@ -24,14 +21,12 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
   
   {/* --- IMAGE SIDE --- */}
   <div class="image-side">
-    <Image 
+    <img 
       src={img} 
       alt={title} 
-      width={1200} 
-      height={900} 
       class="cover-img"
+      loading="lazy"
     />
-    {/* Overlay restored at 5% opacity */}
     <div class="img-overlay"></div>
   </div>
 
@@ -65,7 +60,6 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
   /* ----------------------- */
   /* Global Component Reset  */
   /* ----------------------- */
-  /* FIX: Ensures padding is calculated INSIDE the width, preventing overflow */
   * {
     box-sizing: border-box;
   }
@@ -183,8 +177,7 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
     align-items: baseline;
     gap: 1rem;
     margin-bottom: 0.25rem;
-    /* FIX: Allows ID and Title to wrap on small screens */
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
   }
 
   .id-number {
@@ -194,7 +187,6 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
   }
 
   .title {
-    /* FIX: Fluid typography (min 1.75rem, max 4rem) prevents massive text on mobile */
     font-size: clamp(1.75rem, 5vw, 4rem);
     font-weight: 800;
     text-transform: uppercase;
@@ -226,7 +218,6 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
     line-height: 1.7;
     margin-bottom: 2.5rem;
     font-weight: 400;
-    /* FIX: Ensures text wraps within the container */
     overflow-wrap: break-word;
     word-wrap: break-word;
   }
@@ -251,7 +242,7 @@ const themeClass = isOdd ? 'light-theme' : 'dark-theme';
   }
   
   .feature-text {
-    flex: 1; /* Allows text to wrap properly next to icon */
+    flex: 1;
   }
 
   .check-icon {

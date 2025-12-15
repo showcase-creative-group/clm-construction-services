@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-
 interface Props {
   img: string;
   alt?: string;
@@ -10,11 +8,9 @@ const { img, alt = "Featured Project" } = Astro.props;
 ---
 
 <section class="featured-wrapper">
-  <Image 
+  <img 
     src={img} 
     alt={alt} 
-    width={1920}
-    height={1080}
     class="featured-img"
     loading="eager" 
   />
@@ -38,7 +34,6 @@ const { img, alt = "Featured Project" } = Astro.props;
     display: flex;
   }
 
-  /* Updated to target the Astro Image class */
   .featured-img {
     position: absolute;
     top: 0;

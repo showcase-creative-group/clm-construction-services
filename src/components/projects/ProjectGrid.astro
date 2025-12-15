@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-
 interface Props {
   images: string[];
 }
@@ -13,11 +11,10 @@ const { images } = Astro.props;
     <div class="grid">
       {images.map((img, index) => (
         <div class="grid-item">
-          <Image 
+          <img 
             src={img} 
             alt={`Project ${index + 1}`}
-            width={800}
-            height={600}
+            loading="lazy"
             class="project-img"
           />
         </div>
@@ -54,7 +51,6 @@ const { images } = Astro.props;
     cursor: pointer;
   }
 
-  /* Updated selector for the Astro Image component */
   .project-img {
     width: 100%;
     height: 100%;
@@ -69,7 +65,7 @@ const { images } = Astro.props;
   /* Unified 992px Breakpoint */
   @media (max-width: 992px) {
     .grid {
-      grid-template-columns: 1fr; 
+      grid-template-columns: 1fr;
       gap: 1.5rem;
     }
     

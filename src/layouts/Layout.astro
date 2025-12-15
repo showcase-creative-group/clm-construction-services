@@ -1,22 +1,48 @@
 ---
+/* src/layouts/Layout.astro */
 import Header from '../components/common/Header.astro';
-import TopBar from '../components/common/TopBar.astro'; /* NEW IMPORT */
+import TopBar from '../components/common/TopBar.astro';
 
 interface Props {
 	title: string;
+    description?: string;
+    image?: string;
 }
 
-const { title } = Astro.props;
+const { 
+    title, 
+    description = "Premier Brazos Valley earthwork and utility contractor.",
+    image = "/og-image.png"
+} = Astro.props;
+
+/* Resolve the full URL for the image.
+   If your site domain is set in astro.config.mjs, Astro.site will use it.
+   Otherwise, it falls back to the localhost or the placeholder string.
+*/
+const siteUrl = Astro.site ? Astro.site.href : 'https://clm-construction-services.pages.dev'; 
+const imageUrl = new URL(image, siteUrl).href;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Premier Brazos Valley earthwork and utility contractor." />
+		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={imageUrl} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={imageUrl} />
 		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

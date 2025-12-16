@@ -1,4 +1,7 @@
 ---
+/* src/components/common/Footer.astro */
+import texasOutline from '../../assets/texasoutline.svg';
+
 const currentYear = new Date().getFullYear();
 ---
 
@@ -45,17 +48,19 @@ const currentYear = new Date().getFullYear();
   <div class="bottom-bar">
     <div class="bottom-container">
       <p>&copy; {currentYear} CLM Construction Services. All rights reserved.</p>
-      <p class="credit">
-        Proudly built by 
-        <a href="https://showcasecreativegroup.com" target="_blank" rel="noopener noreferrer">
+      
+      <div class="credit">
+        <span>Proudly built by</span> 
+        <a href="https://showcasecreativegroup.com" target="_blank" rel="noopener noreferrer" class="credit-link">
           Showcase Creative Group
+          <span class="texas-icon"></span>
         </a>
-      </p>
+      </div>
     </div>
   </div>
 </footer>
 
-<style>
+<style define:vars={{ texasUrl: `url(${texasOutline.src})` }}>
   footer {
     background-color: var(--color-primary);
     color: white;
@@ -162,12 +167,10 @@ const currentYear = new Date().getFullYear();
   }
 
   .bottom-bar {
-    /* UPDATED: Changed to var(--color-primary) to match main footer */
-    background-color: var(--color-primary); 
+    background-color: var(--color-primary);
     padding: 1.5rem 0;
     font-size: 0.9rem;
     color: #64748b;
-    /* Optional: Add a subtle top border to separate it slightly if desired */
     border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
 
@@ -180,14 +183,41 @@ const currentYear = new Date().getFullYear();
     align-items: center;
   }
 
-  .credit a {
+  .credit {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .credit-link {
     color: #94a3b8;
     font-weight: 600;
     font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.1rem;
+    transition: color 0.2s ease;
   }
   
-  .credit a:hover {
+  .credit-link:hover {
     color: var(--color-accent);
+  }
+
+  /* Uses mask-image to allow the background-color (currentColor) 
+     to fill the SVG shape. This ensures it matches the text color exactly.
+  */
+  .texas-icon {
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    background-color: currentColor;
+    -webkit-mask-image: var(--texasUrl);
+    mask-image: var(--texasUrl);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    position: relative;
   }
 
   /* Mobile Breakpoint */
@@ -199,8 +229,12 @@ const currentYear = new Date().getFullYear();
 
     .bottom-container {
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 1rem;
       text-align: center;
+    }
+
+    .credit {
+      justify-content: center;
     }
     
     .contact-item {
